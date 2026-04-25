@@ -1,6 +1,5 @@
 ﻿#pragma once
 //25L-2003
-//25L-3108
 #include<iostream>
 #include<string>
 #include <sstream>
