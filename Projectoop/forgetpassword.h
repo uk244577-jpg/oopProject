@@ -11,7 +11,7 @@ namespace Projectoop {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
+	
 	/// Summary for forgetpassword
 	/// </summary>
 	public ref class forgetpassword : public System::Windows::Forms::Form
@@ -165,5 +165,7 @@ namespace Projectoop {
 			MessageBox::Show("Invalid Username or Voter ID. Please try again.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
+	//comments 
+	//no
 	};
 }
