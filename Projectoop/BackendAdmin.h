@@ -5,7 +5,7 @@
 #include "Backend.h"
 using namespace std;
 
-string extractField(const string& line, int fieldIndex) {
+inline string extractField(const string& line, int fieldIndex) {
     int currentField = 0;
     string field = "";
     for (int i = 0; i < line.length(); i++) {
@@ -27,7 +27,7 @@ string extractField(const string& line, int fieldIndex) {
     return "";
 }
 
-bool adminUsernameExists(const string& username) {
+inline bool adminUsernameExists(const string& username) {
     ifstream in("Admin.txt");
     string line;
     while (getline(in, line)) {
@@ -41,7 +41,7 @@ bool adminUsernameExists(const string& username) {
     return false;
 }
 
-bool candidateIdExists(const string& id) {
+inline bool candidateIdExists(const string& id) {
     ifstream in("Candidates.txt");
     string line;
     while (getline(in, line)) {
@@ -55,7 +55,7 @@ bool candidateIdExists(const string& id) {
     return false;
 }
 
-int getCandidateCount() {
+inline int getCandidateCount() {
     ifstream inf("Candidates.txt");
     string line;
     int count = 0;
@@ -68,7 +68,7 @@ int getCandidateCount() {
     return count;
 }
 
-string generateCandidateID() {
+inline string generateCandidateID() {
     int n = getCandidateCount() + 1;
     return "C" + to_string(n);
 }

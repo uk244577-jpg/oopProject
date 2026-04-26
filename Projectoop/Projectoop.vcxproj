@@ -153,6 +153,10 @@
       <DependentUpon>RoleSelector.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ADMIN_FORMS_GUIDE.md" />
+    <None Include="IMPLEMENTATION_SUMMARY.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

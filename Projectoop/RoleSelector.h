@@ -1,8 +1,8 @@
-
 #pragma once
 #include "MyForm.h"
 #include "VoterChoice.h"
 #include "RegisterVoter.h"
+#include "AdminForm.h"
 
 namespace Projectoop {
 
@@ -110,10 +110,15 @@ namespace Projectoop {
     }
 
     private: System::Void btnAdmin_Click(System::Object^ sender, System::EventArgs^ e) {
-        // Admin flow placeholder — you can open an Admin login form here later.
-        MessageBox::Show("Admin selected. Implement admin login/dashboard here.", "Admin", MessageBoxButtons::OK, MessageBoxIcon::Information);
-        // Optionally close selector or keep it open:
-        // this->Close();
+        // Hide role selector
+        this->Hide();
+
+        // Open the Admin login form
+        Projectoop::AdminForm^ adminForm = gcnew Projectoop::AdminForm();
+        System::Windows::Forms::DialogResult result = adminForm->ShowDialog();
+
+        // After admin form closes, show role selector again
+        this->Show();
     }
     };
 }
