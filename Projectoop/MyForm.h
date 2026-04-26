@@ -1,7 +1,12 @@
+
 #pragma once
 #include "Backend.h"
 #include "forgetpassword.h" // Add this line
 #include <msclr\marshal_cppstd.h> 
+
+using namespace System;
+using namespace System::Windows::Forms;
+
 namespace Projectoop {
 
 	using namespace System;
@@ -139,6 +144,7 @@ namespace Projectoop {
 			this->Controls->Add(this->label1);
 			this->Name = L"MyForm";
 			this->Text = L"Username";
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -173,30 +179,31 @@ namespace Projectoop {
 			MessageBox::Show("Invalid username or password.", "Login Failed", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
-	//private: System::Void linkForgetPassword_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+		   //private: System::Void linkForgetPassword_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
 
-	//	// Hide the login screen
-	//	this->Hide();
+		   //	// Hide the login screen
+		   //	this->Hide();
 
-	//	// Open the Forget Password Form
-	//	ForgetPasswordForm^ fpForm = gcnew ForgetPasswordForm();
-	//	fpForm->ShowDialog(); // Waits here until the user closes the forget password window
+		   //	// Open the Forget Password Form
+		   //	ForgetPasswordForm^ fpForm = gcnew ForgetPasswordForm();
+		   //	fpForm->ShowDialog(); // Waits here until the user closes the forget password window
 
-	//	// Show the login screen again after they finish
-	//	this->Show();
-	//}
-			private: System::Void linkForgetPassword_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+		   //	// Show the login screen again after they finish
+		   //	this->Show();
+		   //}
+	private: System::Void linkForgetPassword_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
 
-				// Hide the login screen
-				this->Hide();
+		// Hide the login screen
+		this->Hide();
 
-				// Open the Forget Password Form
-				Projectoop::forgetpassword^ fpForm = gcnew Projectoop::forgetpassword(); // <--- Add Projectoop:: here
-				fpForm->ShowDialog(); // Waits here until the user closes the forget password window
+		// Open the Forget Password Form
+		Projectoop::forgetpassword^ fpForm = gcnew Projectoop::forgetpassword(); // <--- Add Projectoop:: here
+		fpForm->ShowDialog(); // Waits here until the user closes the forget password window
 
-				// Show the login screen again after they finish
-				this->Show();
-			}
-
-	};
+		// Show the login screen again after they finish
+		this->Show();
+	}
+	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
+};
 }

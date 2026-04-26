@@ -1,6 +1,6 @@
-﻿#pragma once
+﻿//cpp C:\Users\Usman\source\repos\Projectoop\Projectoop\Backend.h
+#pragma once
 //25L-2003
-//25L-3108
 #include<iostream>
 #include<string>
 #include <sstream>
@@ -46,7 +46,31 @@ public:
 
 		infile.close();
 		return false;
-	}bool checkusernameExist(const string& username) {
+	}
+
+	// New: validate admin credentials from admins.txt
+	bool validateAdmin(string& inputName, string& inputPass) {
+		ifstream infile(adminFile);
+		if (!infile.is_open()) {
+			cout << "Could not open admin database file." << endl;
+			return false;
+		}
+		string line;
+		while (getline(infile, line)) {
+			string f_name, f_pass;
+			stringstream ss(line);
+			getline(ss, f_name, '|');
+			getline(ss, f_pass, '|');
+			if (f_name == inputName && f_pass == inputPass) {
+				infile.close();
+				return true;
+			}
+		}
+		infile.close();
+		return false;
+	}
+
+	bool checkusernameExist(const string& username) {
 		ifstream infile(voterFile); // Open in read mode
 		if (!infile.is_open()) {
 			cout << "Could not open database file." << endl;

@@ -1,6 +1,6 @@
 
 #include "MyForm.h"
-//hbdhduwdhduh
+#include"RoleSelector.h"
 using namespace System;
 using namespace System::Windows::Forms;
 
@@ -14,8 +14,7 @@ int main(cli::array<String^>^ args)
         Application::SetCompatibleTextRenderingDefault(false);
 
         // Instantiate and run the main form
-        Projectoop::MyForm mainForm;
-        Application::Run(% mainForm);
+        Projectoop::RoleSelector selector; Application::Run(% selector);
     }
     catch (Exception^ ex)
     {
