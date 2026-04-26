@@ -2,6 +2,7 @@
 #pragma once
 #include "Backend.h"
 #include "forgetpassword.h" // Add this line
+#include "VoterDashboard.h"
 #include <msclr\marshal_cppstd.h> 
 
 using namespace System;
@@ -173,7 +174,11 @@ namespace Projectoop {
 		if (fh.validateVoter(nativeUser, nativePass, foundId, foundVoted)) {
 			MessageBox::Show("Login Successful!", "Welcome", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
-			// Later, you can add code here to open a Dashboard Form and hide this login screen.
+			// Open Voter Dashboard Form and hide this login screen.
+			this->Hide();
+			Projectoop::VoterDashboard^ vDash = gcnew Projectoop::VoterDashboard(gcnew String(nativeUser.c_str()), gcnew String(foundId.c_str()), foundVoted);
+			vDash->ShowDialog();
+			this->Close();
 		}
 		else {
 			MessageBox::Show("Invalid username or password.", "Login Failed", MessageBoxButtons::OK, MessageBoxIcon::Error);

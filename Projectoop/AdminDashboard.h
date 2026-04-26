@@ -1,5 +1,6 @@
 #pragma once
 #include "Backend.h"
+#include "AdminVoterSearch.h"
 #include <msclr\marshal_cppstd.h>
 #include <fstream>
 #include <string>
@@ -58,6 +59,7 @@ namespace Projectoop {
         System::Windows::Forms::Label^ lblAdminUser;
         System::Windows::Forms::Label^ lblAdminPass;
         System::Windows::Forms::Button^ btnLogout;
+        System::Windows::Forms::Button^ btnSearchVoters;
 
         System::ComponentModel::Container ^components;
 
@@ -89,6 +91,7 @@ namespace Projectoop {
             this->txtAdminPass = (gcnew System::Windows::Forms::TextBox());
             this->btnRegAdmin = (gcnew System::Windows::Forms::Button());
             this->btnLogout = (gcnew System::Windows::Forms::Button());
+            this->btnSearchVoters = (gcnew System::Windows::Forms::Button());
 
             // 
             // Form setup
@@ -218,11 +221,17 @@ namespace Projectoop {
             this->btnRegAdmin->Text = L"Register";
             this->btnRegAdmin->Click += gcnew System::EventHandler(this, &AdminDashboard::btnRegAdmin_Click);
 
+            this->btnSearchVoters->Location = System::Drawing::Point(120, 75);
+            this->btnSearchVoters->Size = System::Drawing::Size(160, 20);
+            this->btnSearchVoters->Text = L"Open Voter DB";
+            this->btnSearchVoters->Click += gcnew System::EventHandler(this, &AdminDashboard::btnSearchVoters_Click);
+
             this->groupAdmin->Controls->Add(this->lblAdminUser);
             this->groupAdmin->Controls->Add(this->txtAdminUser);
             this->groupAdmin->Controls->Add(this->lblAdminPass);
             this->groupAdmin->Controls->Add(this->txtAdminPass);
             this->groupAdmin->Controls->Add(this->btnRegAdmin);
+            this->groupAdmin->Controls->Add(this->btnSearchVoters);
 
             // btnLogout
             this->btnLogout->Location = System::Drawing::Point(280, 440);
@@ -373,6 +382,7 @@ namespace Projectoop {
         }
 
         System::Void btnRegAdmin_Click(System::Object^ sender, System::EventArgs^ e) {
+            // Check logic...
             if (String::IsNullOrWhiteSpace(txtAdminUser->Text) || String::IsNullOrWhiteSpace(txtAdminPass->Text)) {
                 MessageBox::Show("Username and password required.");
                 return;
@@ -411,6 +421,11 @@ namespace Projectoop {
                 txtAdminUser->Clear();
                 txtAdminPass->Clear();
             }
+        }
+
+        System::Void btnSearchVoters_Click(System::Object^ sender, System::EventArgs^ e) {
+            AdminVoterSearch^ searchForm = gcnew AdminVoterSearch();
+            searchForm->ShowDialog();
         }
 
         System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e) {
