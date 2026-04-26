@@ -1,0 +1,8 @@
+[Dd]ebug/
+[Rr]elease/
+x64/
+*.obj
+*.log
+*.exe
+*.pdb
+*.tlog

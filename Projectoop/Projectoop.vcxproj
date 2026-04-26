@@ -127,7 +127,9 @@
     <ClCompile Include="RoleSelector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdminForm.h" />
     <ClInclude Include="Backend.h" />
+    <ClInclude Include="BackendAdmin.h" />
     <ClInclude Include="forgetpassword.h">
       <FileType>CppForm</FileType>
     </ClInclude>
