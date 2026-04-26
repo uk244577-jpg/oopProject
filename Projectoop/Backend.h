@@ -171,7 +171,7 @@ public:
 			getline(ss, cid, '|');
 
 			if (cid == candidateId) {
-				found = true;  // skip this line = delete it
+				found = true;  
 			}
 			else {
 				allLines += line + "\n";
@@ -319,7 +319,7 @@ public:
 		}
 
 		in.close();
-		return false;
+		return false;  
 	}
 	void registerAdmins() {
 		int n;
@@ -356,10 +356,10 @@ public:
 					cout << "  Username already taken. Try a different one.\n";
 					continue;
 				}
-				break;
+				break;  
 			}
 
-
+	
 			string pass;
 			while (true) {
 				cout << "  Enter password : ";
@@ -386,7 +386,7 @@ public:
 					cout << "  Passwords do not match. Try again.\n";
 					continue;
 				}
-				break;
+				break; 
 			}
 			ifstream countFile("Admin.txt");
 			int count = 0;
@@ -482,7 +482,7 @@ public:
 		cout << "\n  Invalid username or password.\n";
 		return false;
 	}bool forgetPassword(Filehandler& fh) {
-
+		
 
 		string inputUsername, inputVoterId;
 		cout << "  Enter your Username : ";
@@ -539,7 +539,7 @@ public:
 		return adminId;
 	}
 
-
+	
 	bool login(Filehandler& fh) override {
 		cout << "\n╔══════════════════════════╗\n";
 		cout << "║       ADMIN LOGIN        ║\n";
@@ -757,7 +757,7 @@ public:
 		do {
 			int pad = 10 - username.length();
 			for (int i = 0; i < pad; i++) cout << " ";
-
+		
 			cout << "  1. Add Candidate\n";
 			cout << "  2. Remove Candidate\n";
 			cout << "  3. View Candidates\n";
