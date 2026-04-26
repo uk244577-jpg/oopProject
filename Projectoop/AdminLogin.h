@@ -2,7 +2,7 @@
 #pragma once
 #include "Backend.h"
 #include "forgetpassword.h" // Add this line
-#include "VoterDashboard.h"
+#include "AdminDashboard.h" // Add AdminDashboard
 #include <msclr\marshal_cppstd.h> 
 
 using namespace System;
@@ -18,12 +18,12 @@ namespace Projectoop {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Summary for MyForm
+	/// Summary for AdminLogin
 	/// </summary>
-	public ref class MyForm : public System::Windows::Forms::Form
+	public ref class AdminLogin : public System::Windows::Forms::Form
 	{
 	public:
-		MyForm(void)
+		AdminLogin(void)
 		{
 			InitializeComponent();
 			//
@@ -35,7 +35,7 @@ namespace Projectoop {
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~MyForm()
+		~AdminLogin()
 		{
 			if (components)
 			{
@@ -84,7 +84,7 @@ namespace Projectoop {
 			this->label1->Size = System::Drawing::Size(53, 13);
 			this->label1->TabIndex = 3;
 			this->label1->Text = L"username";
-			this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
+			this->label1->Click += gcnew System::EventHandler(this, &AdminLogin::label1_Click);
 			// 
 			// label2
 			// 
@@ -118,7 +118,7 @@ namespace Projectoop {
 			this->btnLogin->TabIndex = 7;
 			this->btnLogin->Text = L"Login";
 			this->btnLogin->UseVisualStyleBackColor = true;
-			this->btnLogin->Click += gcnew System::EventHandler(this, &MyForm::btnLogin_Click);
+			this->btnLogin->Click += gcnew System::EventHandler(this, &AdminLogin::btnLogin_Click);
 			// 
 			// linkForgetPassword
 			// 
@@ -129,9 +129,9 @@ namespace Projectoop {
 			this->linkForgetPassword->TabIndex = 8;
 			this->linkForgetPassword->TabStop = true;
 			this->linkForgetPassword->Text = L"forget password";
-			this->linkForgetPassword->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MyForm::linkForgetPassword_LinkClicked);
+			this->linkForgetPassword->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &AdminLogin::linkForgetPassword_LinkClicked);
 			// 
-			// MyForm
+			// AdminLogin
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
@@ -143,9 +143,9 @@ namespace Projectoop {
 			this->Controls->Add(this->txtUsername);
 			this->Controls->Add(this->txtPassword);
 			this->Controls->Add(this->label1);
-			this->Name = L"MyForm";
+			this->Name = L"AdminLogin";
 			this->Text = L"Username";
-			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			this->Load += gcnew System::EventHandler(this, &AdminLogin::AdminLogin_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -171,13 +171,13 @@ namespace Projectoop {
 		bool foundVoted = false;
 
 		// 4. Validate the user!
-		if (fh.validateVoter(nativeUser, nativePass, foundId, foundVoted)) {
+		if (fh.validateAdmin(nativeUser, nativePass)) {
 			MessageBox::Show("Login Successful!", "Welcome", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
-			// Open Voter Dashboard Form and hide this login screen.
+			// Open the Dashboard Form and hide this login screen.
 			this->Hide();
-			Projectoop::VoterDashboard^ vDash = gcnew Projectoop::VoterDashboard(gcnew String(nativeUser.c_str()), gcnew String(foundId.c_str()), foundVoted);
-			vDash->ShowDialog();
+			Projectoop::AdminDashboard^ dashboard = gcnew Projectoop::AdminDashboard();
+			dashboard->ShowDialog();
 			this->Close();
 		}
 		else {
@@ -208,7 +208,7 @@ namespace Projectoop {
 		// Show the login screen again after they finish
 		this->Show();
 	}
-	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void AdminLogin_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 };
 }

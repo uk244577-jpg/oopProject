@@ -127,6 +127,8 @@
     <ClCompile Include="RoleSelector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdminDashboard.h" />
+    <ClInclude Include="AdminVoterSearch.h" />
     <ClInclude Include="Backend.h" />
     <ClInclude Include="forgetpassword.h">
       <FileType>CppForm</FileType>
@@ -139,6 +141,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="VoterChoice.h" />
+    <ClInclude Include="VoterDashboard.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="forgetpassword.resx">
