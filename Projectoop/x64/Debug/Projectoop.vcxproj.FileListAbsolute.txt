@@ -1,5 +1,0 @@
-C:\Users\Usman\source\repos\Projectoop\Projectoop\x64\Debug\Projectoop.vcxproj.AssemblyReference.cache
-C:\Users\Usman\source\repos\Projectoop\Projectoop\x64\Debug\Projectoop.MyForm.resources
-C:\Users\Usman\source\repos\Projectoop\Projectoop\x64\Debug\Projectoop.vcxproj.GenerateResource.cache
-C:\Users\Usman\source\repos\Projectoop\Projectoop\x64\Debug\Projectoop.forgetpassword.resources
-C:\Users\Usman\source\repos\Projectoop\Projectoop\x64\Debug\Projectoop.RoleSelector.resources
