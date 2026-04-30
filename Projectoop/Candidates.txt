@@ -1,4 +1,5 @@
-faizan|pti|C1
-hunain|n league|C2
+hunain|pti|C1
+khanan|ptt|C2
 usman|ttp|C3
-khanan|tlp|C4
+faizan|pmln|C4
+chuu chuu|cha|C5
