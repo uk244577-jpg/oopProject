@@ -1,0 +1,11 @@
+========================================
+         VOTING CONFIRMATION SLIP
+========================================
+Voter Name    : Hassan
+Voter ID      : 1
+Candidate     : faizan
+Candidate ID  : C1
+Voted At      : 2026-04-30 23:28:06
+========================================
+   Thank you for participating!
+========================================

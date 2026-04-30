@@ -124,8 +124,11 @@
   <ItemGroup>
     <ClCompile Include="forgetpassword.cpp" />
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="RoleSelector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdminDashboard.h" />
+    <ClInclude Include="AdminVoterSearch.h" />
     <ClInclude Include="Backend.h" />
     <ClInclude Include="forgetpassword.h">
       <FileType>CppForm</FileType>
@@ -133,6 +136,13 @@
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="RegisterVoter.h" />
+    <ClInclude Include="RoleSelector.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="VoterChoice.h" />
+    <ClInclude Include="VoterDashboard.h" />
+    <ClInclude Include="VoteTracker.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="forgetpassword.resx">
@@ -140,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RoleSelector.resx">
+      <DependentUpon>RoleSelector.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

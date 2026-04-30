@@ -21,6 +21,9 @@
     <ClCompile Include="forgetpassword.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="RoleSelector.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
@@ -30,6 +33,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="forgetpassword.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RoleSelector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VoterChoice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RegisterVoter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AdminDashboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AdminVoterSearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VoterDashboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VoteTracker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

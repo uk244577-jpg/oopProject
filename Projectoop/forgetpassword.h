@@ -11,9 +11,7 @@ namespace Projectoop {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for forgetpassword
-	/// </summary>
+	
 	public ref class forgetpassword : public System::Windows::Forms::Form
 	{
 	public:
