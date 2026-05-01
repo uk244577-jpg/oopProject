@@ -1,0 +1,11 @@
+========================================
+         VOTING CONFIRMATION SLIP
+========================================
+Voter Name    : hamza1234
+Voter ID      : 12
+Candidate     : khanan
+Candidate ID  : C4
+Voted At      : 2026-04-30 19:26:02
+========================================
+   Thank you for participating!
+========================================

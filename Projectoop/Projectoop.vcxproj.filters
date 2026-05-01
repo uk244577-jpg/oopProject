@@ -47,5 +47,17 @@
     <ClInclude Include="AdminDashboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AdminVoterSearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VoterDashboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VoteTracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FullResults.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

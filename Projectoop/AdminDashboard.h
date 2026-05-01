@@ -1,6 +1,7 @@
 #pragma once
 #include "Backend.h"
 #include "AdminVoterSearch.h"
+#include "FullResults.h"  // ADD THIS LINE
 #include <msclr\marshal_cppstd.h>
 #include <fstream>
 #include <string>
@@ -52,6 +53,7 @@ namespace Projectoop {
         System::Windows::Forms::GroupBox^ groupSystem;
         System::Windows::Forms::Button^ btnViewResults;
         System::Windows::Forms::Button^ btnResetElection;
+        System::Windows::Forms::Button^ btnFullResults;  // ADD THIS LINE
         System::Windows::Forms::GroupBox^ groupAdmin;
         System::Windows::Forms::TextBox^ txtAdminUser;
         System::Windows::Forms::TextBox^ txtAdminPass;
@@ -61,7 +63,7 @@ namespace Projectoop {
         System::Windows::Forms::Button^ btnLogout;
         System::Windows::Forms::Button^ btnSearchVoters;
 
-        System::ComponentModel::Container ^components;
+        System::ComponentModel::Container^ components;
 
         void InitializeComponent(void)
         {
@@ -84,6 +86,7 @@ namespace Projectoop {
             this->groupSystem = (gcnew System::Windows::Forms::GroupBox());
             this->btnViewResults = (gcnew System::Windows::Forms::Button());
             this->btnResetElection = (gcnew System::Windows::Forms::Button());
+            this->btnFullResults = (gcnew System::Windows::Forms::Button());  // ADD THIS LINE
             this->groupAdmin = (gcnew System::Windows::Forms::GroupBox());
             this->lblAdminUser = (gcnew System::Windows::Forms::Label());
             this->txtAdminUser = (gcnew System::Windows::Forms::TextBox());
@@ -180,9 +183,9 @@ namespace Projectoop {
             this->groupVoter->Controls->Add(this->txtVoterUsername);
             this->groupVoter->Controls->Add(this->btnDeleteVoter);
 
-            // groupSystem
+            // groupSystem - MODIFIED SECTION
             this->groupSystem->Location = System::Drawing::Point(280, 260);
-            this->groupSystem->Size = System::Drawing::Size(300, 60);
+            this->groupSystem->Size = System::Drawing::Size(300, 90);  // Increased height
             this->groupSystem->Text = L"System Operations";
 
             this->btnViewResults->Location = System::Drawing::Point(20, 22);
@@ -195,12 +198,18 @@ namespace Projectoop {
             this->btnResetElection->Text = L"Reset Election Data";
             this->btnResetElection->Click += gcnew System::EventHandler(this, &AdminDashboard::btnResetElection_Click);
 
+            // NEW BUTTON: Full Results with Winner
+            this->btnFullResults->Location = System::Drawing::Point(20, 55);
+            this->btnFullResults->Size = System::Drawing::Size(260, 25);
+            this->btnFullResults->Text = L"?? View Full Results (with Winner)";
+            this->btnFullResults->Click += gcnew System::EventHandler(this, &AdminDashboard::btnFullResults_Click);
+
             this->groupSystem->Controls->Add(this->btnViewResults);
             this->groupSystem->Controls->Add(this->btnResetElection);
-
+            this->groupSystem->Controls->Add(this->btnFullResults);  // ADD THIS
 
             // groupAdmin
-            this->groupAdmin->Location = System::Drawing::Point(280, 330);
+            this->groupAdmin->Location = System::Drawing::Point(280, 360);  // Moved down
             this->groupAdmin->Size = System::Drawing::Size(300, 100);
             this->groupAdmin->Text = L"Register New Admin";
 
@@ -251,7 +260,7 @@ namespace Projectoop {
             this->Load += gcnew System::EventHandler(this, &AdminDashboard::AdminDashboard_Load);
         }
 
-    private: 
+    private:
         System::Void AdminDashboard_Load(System::Object^ sender, System::EventArgs^ e) {
             RefreshCandidates();
         }
@@ -365,9 +374,15 @@ namespace Projectoop {
             voters.close();
 
             int percent = total > 0 ? (voted * 100) / total : 0;
-            String^ resultMsg = String::Format("Total Registered: {0}\nVotes Cast: {1}\nYet to Vote: {2}\nTurnout: {3}%", 
-                                total, voted, (total - voted), percent);
+            String^ resultMsg = String::Format("Total Registered: {0}\nVotes Cast: {1}\nYet to Vote: {2}\nTurnout: {3}%",
+                total, voted, (total - voted), percent);
             MessageBox::Show(resultMsg, "Voting Results");
+        }
+
+        // NEW BUTTON CLICK HANDLER
+        System::Void btnFullResults_Click(System::Object^ sender, System::EventArgs^ e) {
+            FullResults^ resultsForm = gcnew FullResults();
+            resultsForm->ShowDialog();
         }
 
         System::Void btnResetElection_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -375,6 +390,8 @@ namespace Projectoop {
             if (res == System::Windows::Forms::DialogResult::Yes) {
                 Filehandler fh;
                 if (fh.resetElection()) {
+                    // Also clear votes.txt
+                    VoteTracker::clearAllVotes();
                     MessageBox::Show("Election has been reset.");
                     RefreshCandidates();
                 }

@@ -1,0 +1,11 @@
+========================================
+         VOTING CONFIRMATION SLIP
+========================================
+Voter Name    : Hassan123
+Voter ID      : 000
+Candidate     : khanan
+Candidate ID  : C4
+Voted At      : 2026-05-01 15:28:17
+========================================
+   Thank you for participating!
+========================================

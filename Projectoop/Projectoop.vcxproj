@@ -133,6 +133,7 @@
     <ClInclude Include="forgetpassword.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="FullResults.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -142,6 +143,7 @@
     </ClInclude>
     <ClInclude Include="VoterChoice.h" />
     <ClInclude Include="VoterDashboard.h" />
+    <ClInclude Include="VoteTracker.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="forgetpassword.resx">

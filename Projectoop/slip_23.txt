@@ -1,0 +1,11 @@
+========================================
+         VOTING CONFIRMATION SLIP
+========================================
+Voter Name    : Haji121
+Voter ID      : 23
+Candidate     : khanan
+Candidate ID  : C4
+Voted At      : 2026-05-01 16:27:49
+========================================
+   Thank you for participating!
+========================================
