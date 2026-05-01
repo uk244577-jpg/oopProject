@@ -1,6 +1,11 @@
 #pragma once
 #include "Backend.h"
+#include "CandidateSearch.h" // Add the new form here
 #include <msclr\marshal_cppstd.h>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <ctime> // Add ctime for timestamps
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -13,6 +18,11 @@ namespace Projectoop {
 
     public ref class VoterDashboard : public System::Windows::Forms::Form
     {
+    private:
+        String^ voterId;
+        String^ voterUsername;
+        bool hasVoted;
+
     public:
         VoterDashboard(String^ voterId, bool hasVoted)
         {
@@ -42,6 +52,8 @@ namespace Projectoop {
         System::ComponentModel::Container^ components;
         String^ voterId;
         bool hasVoted;
+
+        System::ComponentModel::Container ^components;
 
         void InitializeComponent(void)
         {
@@ -196,7 +208,7 @@ namespace Projectoop {
             // confirm
             if (MessageBox::Show(String::Format("Confirm vote for {0}?", sel), "Confirm Vote", MessageBoxButtons::YesNo, MessageBoxIcon::Question) != System::Windows::Forms::DialogResult::Yes) {
                 return;
-            }
+                }
 
             // call backend
             msclr::interop::marshal_context ctx;
@@ -211,13 +223,30 @@ namespace Projectoop {
                 String^ slipPath = "slip_" + voterId + ".txt";
                 try {
                     System::Diagnostics::Process::Start(slipPath);
-                }
-                catch (...) { /* ignore if cannot open */ }
             }
+                catch (...) { /* ignore if cannot open */ }
+        }
             else {
                 MessageBox::Show("Failed to record vote. Try again.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-            }
-        }
+                }
+
+                msclr::interop::marshal_context context;
+                std::string n_vId = context.marshal_as<std::string>(voterId);
+                String^ selCid = searchForm->SelectedCandidateId;
+                std::string n_cId = context.marshal_as<std::string>(selCid);
+
+                Filehandler fh;
+                if (fh.markVoted(n_vId)) {
+                    std::ofstream voteOut("Votes.txt", std::ios::app);
+                    std::string dt = "";
+                    if (voteOut.is_open()) {
+                        time_t now = time(0);
+                        dt = ctime(&now);
+                        if (!dt.empty() && dt.back() == '\n') dt.pop_back();
+
+                        voteOut << n_vId << "|" << n_cId << "|" << dt << "\n";
+                        voteOut.close();
+                    }
 
         System::Void btnOpenSlip_Click(System::Object^ sender, System::EventArgs^ e) {
             String^ slipPath = "slip_" + voterId + ".txt";
@@ -226,7 +255,10 @@ namespace Projectoop {
             }
             catch (...) {
                 MessageBox::Show("Receipt not found.", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
-            }
+        }
+
+        System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e) {
+            this->Close();
         }
     };
 }

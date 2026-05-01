@@ -52,6 +52,8 @@ namespace Projectoop {
         System::Windows::Forms::GroupBox^ groupSystem;
         System::Windows::Forms::Button^ btnViewResults;
         System::Windows::Forms::Button^ btnResetElection;
+        System::Windows::Forms::Button^ btnVotingHistory;
+        System::Windows::Forms::Button^ btnSearchCandidates;
         System::Windows::Forms::GroupBox^ groupAdmin;
         System::Windows::Forms::TextBox^ txtAdminUser;
         System::Windows::Forms::TextBox^ txtAdminPass;
@@ -83,6 +85,8 @@ namespace Projectoop {
             this->groupSystem = (gcnew System::Windows::Forms::GroupBox());
             this->btnViewResults = (gcnew System::Windows::Forms::Button());
             this->btnResetElection = (gcnew System::Windows::Forms::Button());
+            this->btnVotingHistory = (gcnew System::Windows::Forms::Button());
+            this->btnSearchCandidates = (gcnew System::Windows::Forms::Button());
             this->groupAdmin = (gcnew System::Windows::Forms::GroupBox());
             this->lblAdminUser = (gcnew System::Windows::Forms::Label());
             this->txtAdminUser = (gcnew System::Windows::Forms::TextBox());
@@ -94,7 +98,7 @@ namespace Projectoop {
             // 
             // Form setup
             // 
-            this->ClientSize = System::Drawing::Size(600, 480);
+            this->ClientSize = System::Drawing::Size(600, 500);
             this->Text = L"Admin Dashboard";
             this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
             this->MaximizeBox = false;
@@ -217,20 +221,20 @@ namespace Projectoop {
 
             // groupSystem
             this->groupSystem->Location = System::Drawing::Point(280, 260);
-            this->groupSystem->Size = System::Drawing::Size(300, 60);
+            this->groupSystem->Size = System::Drawing::Size(300, 80); // increased height
             this->groupSystem->Text = L"System Operations";
 
-            this->btnViewResults->Location = System::Drawing::Point(20, 22);
-            this->btnViewResults->Size = System::Drawing::Size(120, 25);
-            this->btnViewResults->Text = L"View Turnout Results";
+            this->btnViewResults->Location = System::Drawing::Point(10, 20);
+            this->btnViewResults->Size = System::Drawing::Size(135, 23);
+            this->btnViewResults->Text = L"View Election Results";
             this->btnViewResults->Click += gcnew System::EventHandler(this, &AdminDashboard::btnViewResults_Click);
             this->btnViewResults->BackColor = primaryGreen;
             this->btnViewResults->ForeColor = System::Drawing::Color::White;
             this->btnViewResults->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
             this->btnViewResults->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
-            this->btnResetElection->Location = System::Drawing::Point(150, 22);
-            this->btnResetElection->Size = System::Drawing::Size(130, 25);
+            this->btnResetElection->Location = System::Drawing::Point(155, 20);
+            this->btnResetElection->Size = System::Drawing::Size(135, 23);
             this->btnResetElection->Text = L"Reset Election Data";
             this->btnResetElection->Click += gcnew System::EventHandler(this, &AdminDashboard::btnResetElection_Click);
             this->btnResetElection->BackColor = dangerRed;
@@ -238,12 +242,23 @@ namespace Projectoop {
             this->btnResetElection->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
             this->btnResetElection->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
+            this->btnVotingHistory->Location = System::Drawing::Point(10, 50);
+            this->btnVotingHistory->Size = System::Drawing::Size(135, 23);
+            this->btnVotingHistory->Text = L"Voting History";
+            this->btnVotingHistory->Click += gcnew System::EventHandler(this, &AdminDashboard::btnVotingHistory_Click);
+
+            this->btnSearchCandidates->Location = System::Drawing::Point(155, 50);
+            this->btnSearchCandidates->Size = System::Drawing::Size(135, 23);
+            this->btnSearchCandidates->Text = L"Search Candidates";
+            this->btnSearchCandidates->Click += gcnew System::EventHandler(this, &AdminDashboard::btnSearchCandidates_Click);
+
             this->groupSystem->Controls->Add(this->btnViewResults);
             this->groupSystem->Controls->Add(this->btnResetElection);
-
+            this->groupSystem->Controls->Add(this->btnVotingHistory);
+            this->groupSystem->Controls->Add(this->btnSearchCandidates);
 
             // groupAdmin
-            this->groupAdmin->Location = System::Drawing::Point(280, 330);
+            this->groupAdmin->Location = System::Drawing::Point(280, 350);
             this->groupAdmin->Size = System::Drawing::Size(300, 100);
             this->groupAdmin->Text = L"Register New Admin";
 
@@ -281,7 +296,7 @@ namespace Projectoop {
             this->groupAdmin->Controls->Add(this->btnRegAdmin);
 
             // btnLogout
-            this->btnLogout->Location = System::Drawing::Point(280, 440);
+            this->btnLogout->Location = System::Drawing::Point(280, 460);
             this->btnLogout->Size = System::Drawing::Size(300, 30);
             this->btnLogout->Text = L"Logout";
             this->btnLogout->Click += gcnew System::EventHandler(this, &AdminDashboard::btnLogout_Click);
@@ -409,21 +424,10 @@ namespace Projectoop {
                 }
             }
 
-            int total = 0, voted = 0;
-            std::string line;
-
-            while (std::getline(voters, line)) {
-                if (line.empty()) continue;
-                total++;
-                std::string f_name, f_pass, f_id, f_votedStr;
-                std::stringstream ss(line);
-                std::getline(ss, f_name, '|');
-                std::getline(ss, f_pass, '|');
-                std::getline(ss, f_id, '|');
-                std::getline(ss, f_votedStr, '|');
-                if (f_votedStr == "1" || f_votedStr == "1\r") voted++;
-            }
-            voters.close();
+        System::Void btnVotingHistory_Click(System::Object^ sender, System::EventArgs^ e) {
+            VotingHistory^ historyForm = gcnew VotingHistory();
+            historyForm->ShowDialog();
+        }
 
             // Open a dedicated results form to display turnout
             ViewResult^ vr = gcnew ViewResult(total, voted);
