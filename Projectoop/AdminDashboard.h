@@ -1,5 +1,6 @@
 #pragma once
 #include "Backend.h"
+#include "ViewResult.h"
 #include <msclr\marshal_cppstd.h>
 #include <fstream>
 #include <string>
@@ -97,17 +98,30 @@ namespace Projectoop {
             this->Text = L"Admin Dashboard";
             this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
             this->MaximizeBox = false;
+            this->BackColor = System::Drawing::Color::Black;
+            this->ForeColor = System::Drawing::Color::White;
 
             // listCandidates
             this->listCandidates->FormattingEnabled = true;
             this->listCandidates->Location = System::Drawing::Point(12, 12);
             this->listCandidates->Size = System::Drawing::Size(250, 400);
+            this->listCandidates->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+            this->listCandidates->ForeColor = System::Drawing::Color::White;
+            this->listCandidates->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 
             // btnRefreshCandidates
             this->btnRefreshCandidates->Location = System::Drawing::Point(12, 420);
             this->btnRefreshCandidates->Size = System::Drawing::Size(250, 30);
             this->btnRefreshCandidates->Text = L"Refresh Candidates";
             this->btnRefreshCandidates->Click += gcnew System::EventHandler(this, &AdminDashboard::btnRefreshCandidates_Click);
+            // Theme: primary green for positive actions
+            System::Drawing::Color primaryGreen = System::Drawing::Color::FromArgb(40, 180, 99);
+            System::Drawing::Color dangerRed = System::Drawing::Color::FromArgb(231, 76, 60);
+            System::Drawing::Color neutralDark = System::Drawing::Color::FromArgb(45, 45, 45);
+            this->btnRefreshCandidates->BackColor = primaryGreen;
+            this->btnRefreshCandidates->ForeColor = System::Drawing::Color::White;
+            this->btnRefreshCandidates->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnRefreshCandidates->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
 
             // groupAddCandidate
             this->groupAddCandidate->Location = System::Drawing::Point(280, 12);
@@ -117,19 +131,29 @@ namespace Projectoop {
             this->lblCandName->Location = System::Drawing::Point(10, 25);
             this->lblCandName->Size = System::Drawing::Size(50, 20);
             this->lblCandName->Text = L"Name:";
+            this->lblCandName->ForeColor = System::Drawing::Color::White;
             this->txtCandName->Location = System::Drawing::Point(60, 22);
             this->txtCandName->Size = System::Drawing::Size(130, 20);
+            this->txtCandName->BackColor = System::Drawing::Color::White;
+            this->txtCandName->ForeColor = System::Drawing::Color::Black;
 
             this->lblCandParty->Location = System::Drawing::Point(10, 55);
             this->lblCandParty->Size = System::Drawing::Size(50, 20);
             this->lblCandParty->Text = L"Party:";
+            this->lblCandParty->ForeColor = System::Drawing::Color::White;
             this->txtCandParty->Location = System::Drawing::Point(60, 52);
             this->txtCandParty->Size = System::Drawing::Size(130, 20);
+            this->txtCandParty->BackColor = System::Drawing::Color::White;
+            this->txtCandParty->ForeColor = System::Drawing::Color::Black;
 
             this->btnAddCandidate->Location = System::Drawing::Point(200, 22);
             this->btnAddCandidate->Size = System::Drawing::Size(80, 50);
             this->btnAddCandidate->Text = L"Add";
             this->btnAddCandidate->Click += gcnew System::EventHandler(this, &AdminDashboard::btnAddCandidate_Click);
+            this->btnAddCandidate->BackColor = primaryGreen;
+            this->btnAddCandidate->ForeColor = System::Drawing::Color::White;
+            this->btnAddCandidate->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnAddCandidate->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
             this->groupAddCandidate->Controls->Add(this->lblCandName);
             this->groupAddCandidate->Controls->Add(this->txtCandName);
@@ -145,13 +169,20 @@ namespace Projectoop {
             this->lblRemoveId->Location = System::Drawing::Point(10, 25);
             this->lblRemoveId->Size = System::Drawing::Size(50, 20);
             this->lblRemoveId->Text = L"ID:";
+            this->lblRemoveId->ForeColor = System::Drawing::Color::White;
             this->txtCandIdToRemove->Location = System::Drawing::Point(60, 22);
             this->txtCandIdToRemove->Size = System::Drawing::Size(130, 20);
+            this->txtCandIdToRemove->BackColor = System::Drawing::Color::White;
+            this->txtCandIdToRemove->ForeColor = System::Drawing::Color::Black;
 
             this->btnRemoveCandidate->Location = System::Drawing::Point(200, 20);
             this->btnRemoveCandidate->Size = System::Drawing::Size(80, 25);
             this->btnRemoveCandidate->Text = L"Remove";
             this->btnRemoveCandidate->Click += gcnew System::EventHandler(this, &AdminDashboard::btnRemoveCandidate_Click);
+            this->btnRemoveCandidate->BackColor = dangerRed;
+            this->btnRemoveCandidate->ForeColor = System::Drawing::Color::White;
+            this->btnRemoveCandidate->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnRemoveCandidate->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
             this->groupRemoveCandidate->Controls->Add(this->lblRemoveId);
             this->groupRemoveCandidate->Controls->Add(this->txtCandIdToRemove);
@@ -165,13 +196,20 @@ namespace Projectoop {
             this->lblVoterUser->Location = System::Drawing::Point(10, 25);
             this->lblVoterUser->Size = System::Drawing::Size(50, 20);
             this->lblVoterUser->Text = L"User:";
+            this->lblVoterUser->ForeColor = System::Drawing::Color::White;
             this->txtVoterUsername->Location = System::Drawing::Point(60, 22);
             this->txtVoterUsername->Size = System::Drawing::Size(130, 20);
+            this->txtVoterUsername->BackColor = System::Drawing::Color::White;
+            this->txtVoterUsername->ForeColor = System::Drawing::Color::Black;
 
             this->btnDeleteVoter->Location = System::Drawing::Point(200, 20);
             this->btnDeleteVoter->Size = System::Drawing::Size(80, 25);
             this->btnDeleteVoter->Text = L"Delete";
             this->btnDeleteVoter->Click += gcnew System::EventHandler(this, &AdminDashboard::btnDeleteVoter_Click);
+            this->btnDeleteVoter->BackColor = dangerRed;
+            this->btnDeleteVoter->ForeColor = System::Drawing::Color::White;
+            this->btnDeleteVoter->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnDeleteVoter->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
             this->groupVoter->Controls->Add(this->lblVoterUser);
             this->groupVoter->Controls->Add(this->txtVoterUsername);
@@ -186,11 +224,19 @@ namespace Projectoop {
             this->btnViewResults->Size = System::Drawing::Size(120, 25);
             this->btnViewResults->Text = L"View Turnout Results";
             this->btnViewResults->Click += gcnew System::EventHandler(this, &AdminDashboard::btnViewResults_Click);
+            this->btnViewResults->BackColor = primaryGreen;
+            this->btnViewResults->ForeColor = System::Drawing::Color::White;
+            this->btnViewResults->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnViewResults->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
             this->btnResetElection->Location = System::Drawing::Point(150, 22);
             this->btnResetElection->Size = System::Drawing::Size(130, 25);
             this->btnResetElection->Text = L"Reset Election Data";
             this->btnResetElection->Click += gcnew System::EventHandler(this, &AdminDashboard::btnResetElection_Click);
+            this->btnResetElection->BackColor = dangerRed;
+            this->btnResetElection->ForeColor = System::Drawing::Color::White;
+            this->btnResetElection->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnResetElection->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
             this->groupSystem->Controls->Add(this->btnViewResults);
             this->groupSystem->Controls->Add(this->btnResetElection);
@@ -204,19 +250,29 @@ namespace Projectoop {
             this->lblAdminUser->Location = System::Drawing::Point(10, 25);
             this->lblAdminUser->Size = System::Drawing::Size(50, 20);
             this->lblAdminUser->Text = L"User:";
+            this->lblAdminUser->ForeColor = System::Drawing::Color::White;
             this->txtAdminUser->Location = System::Drawing::Point(60, 22);
             this->txtAdminUser->Size = System::Drawing::Size(130, 20);
+            this->txtAdminUser->BackColor = System::Drawing::Color::White;
+            this->txtAdminUser->ForeColor = System::Drawing::Color::Black;
 
             this->lblAdminPass->Location = System::Drawing::Point(10, 55);
             this->lblAdminPass->Size = System::Drawing::Size(50, 20);
             this->lblAdminPass->Text = L"Pass:";
+            this->lblAdminPass->ForeColor = System::Drawing::Color::White;
             this->txtAdminPass->Location = System::Drawing::Point(60, 52);
             this->txtAdminPass->Size = System::Drawing::Size(130, 20);
+            this->txtAdminPass->BackColor = System::Drawing::Color::White;
+            this->txtAdminPass->ForeColor = System::Drawing::Color::Black;
 
             this->btnRegAdmin->Location = System::Drawing::Point(200, 22);
             this->btnRegAdmin->Size = System::Drawing::Size(80, 50);
             this->btnRegAdmin->Text = L"Register";
             this->btnRegAdmin->Click += gcnew System::EventHandler(this, &AdminDashboard::btnRegAdmin_Click);
+            this->btnRegAdmin->BackColor = primaryGreen;
+            this->btnRegAdmin->ForeColor = System::Drawing::Color::White;
+            this->btnRegAdmin->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnRegAdmin->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
             this->groupAdmin->Controls->Add(this->lblAdminUser);
             this->groupAdmin->Controls->Add(this->txtAdminUser);
@@ -229,6 +285,10 @@ namespace Projectoop {
             this->btnLogout->Size = System::Drawing::Size(300, 30);
             this->btnLogout->Text = L"Logout";
             this->btnLogout->Click += gcnew System::EventHandler(this, &AdminDashboard::btnLogout_Click);
+            this->btnLogout->BackColor = primaryGreen;
+            this->btnLogout->ForeColor = System::Drawing::Color::White;
+            this->btnLogout->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnLogout->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
 
             this->Controls->Add(this->listCandidates);
             this->Controls->Add(this->btnRefreshCandidates);
@@ -335,8 +395,18 @@ namespace Projectoop {
         System::Void btnViewResults_Click(System::Object^ sender, System::EventArgs^ e) {
             std::ifstream voters("voter.txt");
             if (!voters.is_open()) {
-                MessageBox::Show("Could not open voter file.");
-                return;
+                // Try to create an empty voter file if it doesn't exist
+                std::ofstream create("voter.txt", std::ios::app);
+                if (!create.is_open()) {
+                    MessageBox::Show("Could not open or create voter file.");
+                    return;
+                }
+                create.close();
+                voters.open("voter.txt");
+                if (!voters.is_open()) {
+                    MessageBox::Show("Could not open voter file.");
+                    return;
+                }
             }
 
             int total = 0, voted = 0;
@@ -355,10 +425,9 @@ namespace Projectoop {
             }
             voters.close();
 
-            int percent = total > 0 ? (voted * 100) / total : 0;
-            String^ resultMsg = String::Format("Total Registered: {0}\nVotes Cast: {1}\nYet to Vote: {2}\nTurnout: {3}%", 
-                                total, voted, (total - voted), percent);
-            MessageBox::Show(resultMsg, "Voting Results");
+            // Open a dedicated results form to display turnout
+            ViewResult^ vr = gcnew ViewResult(total, voted);
+            vr->ShowDialog();
         }
 
         System::Void btnResetElection_Click(System::Object^ sender, System::EventArgs^ e) {

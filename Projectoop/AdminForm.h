@@ -64,12 +64,15 @@ namespace Projectoop {
             this->labelName->Size = System::Drawing::Size(120, 13);
             this->labelName->TabIndex = 0;
             this->labelName->Text = L"Candidate Name:";
+            this->labelName->ForeColor = System::Drawing::Color::White;
 
             // txtCandidateName
             this->txtCandidateName->Location = System::Drawing::Point(30, 50);
             this->txtCandidateName->Name = L"txtCandidateName";
             this->txtCandidateName->Size = System::Drawing::Size(200, 20);
             this->txtCandidateName->TabIndex = 1;
+            this->txtCandidateName->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+            this->txtCandidateName->ForeColor = System::Drawing::Color::White;
 
             // labelParty
             this->labelParty->AutoSize = true;
@@ -78,12 +81,15 @@ namespace Projectoop {
             this->labelParty->Size = System::Drawing::Size(120, 13);
             this->labelParty->TabIndex = 2;
             this->labelParty->Text = L"Party Name:";
+            this->labelParty->ForeColor = System::Drawing::Color::White;
 
             // txtCandidateParty
             this->txtCandidateParty->Location = System::Drawing::Point(30, 110);
             this->txtCandidateParty->Name = L"txtCandidateParty";
             this->txtCandidateParty->Size = System::Drawing::Size(200, 20);
             this->txtCandidateParty->TabIndex = 3;
+            this->txtCandidateParty->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+            this->txtCandidateParty->ForeColor = System::Drawing::Color::White;
 
             // btnAddCandidate
             this->btnAddCandidate->Location = System::Drawing::Point(30, 160);
@@ -91,7 +97,10 @@ namespace Projectoop {
             this->btnAddCandidate->Size = System::Drawing::Size(90, 30);
             this->btnAddCandidate->TabIndex = 4;
             this->btnAddCandidate->Text = L"Add";
-            this->btnAddCandidate->UseVisualStyleBackColor = true;
+            this->btnAddCandidate->BackColor = System::Drawing::Color::FromArgb(40, 180, 99);
+            this->btnAddCandidate->ForeColor = System::Drawing::Color::White;
+            this->btnAddCandidate->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnAddCandidate->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
             this->btnAddCandidate->Click += gcnew System::EventHandler(this, &AddCandidateForm::btnAddCandidate_Click);
 
             // btnCancel
@@ -100,13 +109,18 @@ namespace Projectoop {
             this->btnCancel->Size = System::Drawing::Size(90, 30);
             this->btnCancel->TabIndex = 5;
             this->btnCancel->Text = L"Cancel";
-            this->btnCancel->UseVisualStyleBackColor = true;
+            this->btnCancel->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+            this->btnCancel->ForeColor = System::Drawing::Color::White;
+            this->btnCancel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnCancel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
             this->btnCancel->Click += gcnew System::EventHandler(this, &AddCandidateForm::btnCancel_Click);
 
             // AddCandidateForm
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->ClientSize = System::Drawing::Size(280, 220);
+            this->BackColor = System::Drawing::Color::Black;
+            this->ForeColor = System::Drawing::Color::White;
             this->Controls->Add(this->btnCancel);
             this->Controls->Add(this->btnAddCandidate);
             this->Controls->Add(this->txtCandidateParty);
@@ -192,12 +206,15 @@ namespace Projectoop {
             this->labelCandidateId->Size = System::Drawing::Size(100, 13);
             this->labelCandidateId->TabIndex = 0;
             this->labelCandidateId->Text = L"Candidate ID:";
+            this->labelCandidateId->ForeColor = System::Drawing::Color::White;
 
             // txtRemoveCandidateId
             this->txtRemoveCandidateId->Location = System::Drawing::Point(30, 50);
             this->txtRemoveCandidateId->Name = L"txtRemoveCandidateId";
             this->txtRemoveCandidateId->Size = System::Drawing::Size(200, 20);
             this->txtRemoveCandidateId->TabIndex = 1;
+            this->txtRemoveCandidateId->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+            this->txtRemoveCandidateId->ForeColor = System::Drawing::Color::White;
 
             // btnRemove
             this->btnRemove->Location = System::Drawing::Point(30, 100);
@@ -205,7 +222,10 @@ namespace Projectoop {
             this->btnRemove->Size = System::Drawing::Size(90, 30);
             this->btnRemove->TabIndex = 2;
             this->btnRemove->Text = L"Remove";
-            this->btnRemove->UseVisualStyleBackColor = true;
+            this->btnRemove->BackColor = System::Drawing::Color::FromArgb(231, 76, 60);
+            this->btnRemove->ForeColor = System::Drawing::Color::White;
+            this->btnRemove->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnRemove->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
             this->btnRemove->Click += gcnew System::EventHandler(this, &RemoveCandidateForm::btnRemove_Click);
 
             // btnCancel
@@ -214,13 +234,20 @@ namespace Projectoop {
             this->btnCancel->Size = System::Drawing::Size(90, 30);
             this->btnCancel->TabIndex = 3;
             this->btnCancel->Text = L"Cancel";
-            this->btnCancel->UseVisualStyleBackColor = true;
+            this->btnCancel->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+            this->btnCancel->ForeColor = System::Drawing::Color::White;
+            this->btnCancel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnCancel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
             this->btnCancel->Click += gcnew System::EventHandler(this, &RemoveCandidateForm::btnCancel_Click);
 
             // RemoveCandidateForm
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->ClientSize = System::Drawing::Size(280, 180);
+            this->BackColor = System::Drawing::Color::Black;
+            this->ForeColor = System::Drawing::Color::White;
+            this->BackColor = System::Drawing::Color::Black;
+            this->ForeColor = System::Drawing::Color::White;
             this->Controls->Add(this->btnCancel);
             this->Controls->Add(this->btnRemove);
             this->Controls->Add(this->txtRemoveCandidateId);
@@ -298,6 +325,7 @@ namespace Projectoop {
 
             // labelVoterId
             this->labelVoterId->AutoSize = true;
+            this->labelVoterId->ForeColor = System::Drawing::Color::White;
             this->labelVoterId->Location = System::Drawing::Point(30, 30);
             this->labelVoterId->Name = L"labelVoterId";
             this->labelVoterId->Size = System::Drawing::Size(100, 13);
@@ -309,6 +337,8 @@ namespace Projectoop {
             this->txtDeleteVoterId->Name = L"txtDeleteVoterId";
             this->txtDeleteVoterId->Size = System::Drawing::Size(200, 20);
             this->txtDeleteVoterId->TabIndex = 1;
+            this->txtDeleteVoterId->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+            this->txtDeleteVoterId->ForeColor = System::Drawing::Color::White;
 
             // btnDelete
             this->btnDelete->Location = System::Drawing::Point(30, 100);
@@ -316,7 +346,10 @@ namespace Projectoop {
             this->btnDelete->Size = System::Drawing::Size(90, 30);
             this->btnDelete->TabIndex = 2;
             this->btnDelete->Text = L"Delete";
-            this->btnDelete->UseVisualStyleBackColor = true;
+            this->btnDelete->BackColor = System::Drawing::Color::FromArgb(231, 76, 60);
+            this->btnDelete->ForeColor = System::Drawing::Color::White;
+            this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnDelete->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
             this->btnDelete->Click += gcnew System::EventHandler(this, &DeleteVoterForm::btnDelete_Click);
 
             // btnCancel
@@ -325,7 +358,10 @@ namespace Projectoop {
             this->btnCancel->Size = System::Drawing::Size(90, 30);
             this->btnCancel->TabIndex = 3;
             this->btnCancel->Text = L"Cancel";
-            this->btnCancel->UseVisualStyleBackColor = true;
+            this->btnCancel->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+            this->btnCancel->ForeColor = System::Drawing::Color::White;
+            this->btnCancel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnCancel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
             this->btnCancel->Click += gcnew System::EventHandler(this, &DeleteVoterForm::btnCancel_Click);
 
             // DeleteVoterForm
@@ -491,7 +527,8 @@ namespace Projectoop {
             // AdminDashboard
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-            this->BackColor = System::Drawing::SystemColors::ButtonFace;
+            this->BackColor = System::Drawing::Color::Black;
+            this->ForeColor = System::Drawing::Color::White;
             this->ClientSize = System::Drawing::Size(500, 400);
             this->Controls->Add(this->lstCandidates);
             this->Controls->Add(this->btnLogout);
@@ -667,7 +704,8 @@ namespace Projectoop {
             // AdminForm
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-            this->BackColor = System::Drawing::SystemColors::ButtonFace;
+            this->BackColor = System::Drawing::Color::Black;
+            this->ForeColor = System::Drawing::Color::White;
             this->ClientSize = System::Drawing::Size(480, 326);
             this->Controls->Add(this->btnAdminLogin);
             this->Controls->Add(this->txtAdminPassword);
@@ -677,6 +715,20 @@ namespace Projectoop {
             this->Controls->Add(this->label1);
             this->Name = L"AdminForm";
             this->Text = L"Admin Login";
+            // Theme styling
+            this->label1->ForeColor = System::Drawing::Color::White;
+            this->label2->ForeColor = System::Drawing::Color::White;
+            this->label3->ForeColor = System::Drawing::Color::White;
+            System::Drawing::Color primaryGreen = System::Drawing::Color::FromArgb(40, 180, 99);
+            System::Drawing::Color darkBg = System::Drawing::Color::FromArgb(30, 30, 30);
+            this->txtAdminUsername->BackColor = darkBg;
+            this->txtAdminUsername->ForeColor = System::Drawing::Color::White;
+            this->txtAdminPassword->BackColor = darkBg;
+            this->txtAdminPassword->ForeColor = System::Drawing::Color::White;
+            this->btnAdminLogin->BackColor = primaryGreen;
+            this->btnAdminLogin->ForeColor = System::Drawing::Color::White;
+            this->btnAdminLogin->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnAdminLogin->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
             this->ResumeLayout(false);
             this->PerformLayout();
         }

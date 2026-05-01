@@ -139,7 +139,9 @@
     <ClInclude Include="RoleSelector.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="ViewResult.h" />
     <ClInclude Include="VoterChoice.h" />
+    <ClInclude Include="VoterDashboard.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="forgetpassword.resx">

@@ -134,8 +134,9 @@ namespace Projectoop {
 			// AdminLogin
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::SystemColors::ButtonFace;
+          this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::Color::Black;
+			this->ForeColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(480, 326);
 			this->Controls->Add(this->linkForgetPassword);
 			this->Controls->Add(this->btnLogin);
@@ -146,8 +147,27 @@ namespace Projectoop {
 			this->Name = L"AdminLogin";
 			this->Text = L"Username";
 			this->Load += gcnew System::EventHandler(this, &AdminLogin::AdminLogin_Load);
-			this->ResumeLayout(false);
+          this->ResumeLayout(false);
 			this->PerformLayout();
+
+			// Apply black & white theme
+            this->label1->ForeColor = System::Drawing::Color::White;
+			this->label2->ForeColor = System::Drawing::Color::White;
+
+			System::Drawing::Color primaryGreen = System::Drawing::Color::FromArgb(40, 180, 99);
+			System::Drawing::Color darkBg = System::Drawing::Color::FromArgb(30, 30, 30);
+
+			this->txtUsername->BackColor = darkBg;
+			this->txtUsername->ForeColor = System::Drawing::Color::White;
+			this->txtPassword->BackColor = darkBg;
+			this->txtPassword->ForeColor = System::Drawing::Color::White;
+
+			this->btnLogin->BackColor = primaryGreen;
+			this->btnLogin->ForeColor = System::Drawing::Color::White;
+			this->btnLogin->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnLogin->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
+
+			this->linkForgetPassword->LinkColor = primaryGreen;
 
 		}
 #pragma endregion

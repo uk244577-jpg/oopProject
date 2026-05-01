@@ -62,58 +62,72 @@ namespace Projectoop {
 			this->btnReset = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 		
-			this->txtUsername->AutoSize = true;
+         this->txtUsername->AutoSize = true;
 			this->txtUsername->Location = System::Drawing::Point(107, 24);
 			this->txtUsername->Name = L"txtUsername";
 			this->txtUsername->Size = System::Drawing::Size(53, 13);
 			this->txtUsername->TabIndex = 0;
 			this->txtUsername->Text = L"username";
+			this->txtUsername->ForeColor = System::Drawing::Color::White;
 			
-			this->txtVoterId->AutoSize = true;
+          this->txtVoterId->AutoSize = true;
 			this->txtVoterId->Location = System::Drawing::Point(110, 105);
 			this->txtVoterId->Name = L"txtVoterId";
 			this->txtVoterId->Size = System::Drawing::Size(43, 13);
 			this->txtVoterId->TabIndex = 1;
 			this->txtVoterId->Text = L"voter Id";
+			this->txtVoterId->ForeColor = System::Drawing::Color::White;
 		 
-			this->label3->AutoSize = true;
+          this->label3->AutoSize = true;
 			this->label3->Location = System::Drawing::Point(97, 168);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(75, 13);
 			this->label3->TabIndex = 2;
 			this->label3->Text = L"new password";
+			this->label3->ForeColor = System::Drawing::Color::White;
 		
-			this->textBox1->Location = System::Drawing::Point(88, 53);
+          this->textBox1->Location = System::Drawing::Point(88, 53);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(100, 20);
 			this->textBox1->TabIndex = 3;
+			this->textBox1->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+			this->textBox1->ForeColor = System::Drawing::Color::White;
 			
-			this->textBox2->Location = System::Drawing::Point(88, 131);
+         this->textBox2->Location = System::Drawing::Point(88, 131);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(100, 20);
 			this->textBox2->TabIndex = 4;
+			this->textBox2->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+			this->textBox2->ForeColor = System::Drawing::Color::White;
 			// 
 			// textBox3
 			// 
-			this->textBox3->Location = System::Drawing::Point(88, 193);
+         this->textBox3->Location = System::Drawing::Point(88, 193);
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->Size = System::Drawing::Size(100, 20);
 			this->textBox3->TabIndex = 5;
+			this->textBox3->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+			this->textBox3->ForeColor = System::Drawing::Color::White;
 			// 
 			// btnReset
 			// 
-			this->btnReset->Location = System::Drawing::Point(97, 226);
+         this->btnReset->Location = System::Drawing::Point(97, 226);
 			this->btnReset->Name = L"btnReset";
 			this->btnReset->Size = System::Drawing::Size(75, 23);
 			this->btnReset->TabIndex = 6;
 			this->btnReset->Text = L"Reset Password";
-			this->btnReset->UseVisualStyleBackColor = true;
+			this->btnReset->BackColor = System::Drawing::Color::FromArgb(40, 180, 99);
+			this->btnReset->ForeColor = System::Drawing::Color::White;
+			this->btnReset->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnReset->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 			this->btnReset->Click += gcnew System::EventHandler(this, &forgetpassword::btnReset_Click);
 			// 
 			// forgetpassword
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+          this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::Color::Black;
+			this->ForeColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(284, 261);
 			this->Controls->Add(this->btnReset);
 			this->Controls->Add(this->textBox3);

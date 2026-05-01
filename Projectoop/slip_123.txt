@@ -1,0 +1,5 @@
+Voter ID: 123
+Voter Name: usman
+Voted For (Candidate ID): C2
+Voted At: 2026-05-01 10:05:30
+Thank you for voting.

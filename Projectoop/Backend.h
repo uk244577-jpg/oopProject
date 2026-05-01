@@ -5,6 +5,7 @@
 #include<string>
 #include <sstream>
 #include<fstream>
+#include <ctime>
 using namespace std;
 class Filehandler {
 	string voterFile;   // e.g. "voters.txt"
@@ -126,12 +127,16 @@ public:
 		outFile.close();
 		return true;
 	}
-	bool markVoted(const string& voterID) {
+    // Mark voter as voted. If candidateId is provided, also record vote and include candidate on slip.
+	bool markVoted(const string& voterID, const string& candidateId = "") {
 		ifstream infile(voterFile); // Open in read mode
 		if (!infile.is_open()) {
 			cout << "Could not open database file." << endl;
 			return false;
-		}string allines, line;
+		}
+
+		string allines, line;
+		string voterName = "";
 		while (getline(infile, line)) {
 			string f_name, f_pass, f_id, f_votedStr;
 			stringstream ss(line);
@@ -140,18 +145,70 @@ public:
 			getline(ss, f_id, '|');
 			getline(ss, f_votedStr, '|');
 			if (f_id == voterID) {
+				voterName = f_name;
 				allines += f_name + "|" + f_pass + "|" + f_id + "|1\n";
 			}
 			else {
 				allines += line + "\n";
 			}
-		}infile.close();
+		}
+		infile.close();
+
 		ofstream outFile(voterFile, ios::trunc);
 		if (!outFile.is_open()) return false;
 		outFile << allines;
 		outFile.close();
+
+		// If candidateId provided, append to votes log
+		if (!candidateId.empty()) {
+			try {
+				// record vote: voterID|candidateId|timestamp
+				ofstream votesOut("votes.txt", ios::app);
+				if (votesOut.is_open()) {
+					time_t now = time(0);
+					char buf[64];
+					tm tmnow;
+#ifdef _WIN32
+					localtime_s(&tmnow, &now);
+					strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &tmnow);
+#else
+					tmnow = *localtime(&now);
+					strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &tmnow);
+#endif
+					votesOut << voterID << "|" << candidateId << "|" << buf << "\n";
+					votesOut.close();
+				}
+			}
+			catch (...) { /* ignore */ }
+		}
+
+		// Create a voting slip that includes candidate info if available
+		try {
+			std::string slipName = "slip_" + voterID + ".txt";
+			ofstream slip(slipName, ios::out | ios::trunc);
+			if (slip.is_open()) {
+				time_t now = time(0);
+				char buf[64];
+				tm tmnow;
+#ifdef _WIN32
+				localtime_s(&tmnow, &now);
+				strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &tmnow);
+#else
+				tmnow = *localtime(&now);
+				strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &tmnow);
+#endif
+				slip << "Voter ID: " << voterID << "\n";
+				if (!voterName.empty()) slip << "Voter Name: " << voterName << "\n";
+				if (!candidateId.empty()) slip << "Voted For (Candidate ID): " << candidateId << "\n";
+				slip << "Voted At: " << buf << "\n";
+				slip << "Thank you for voting.\n";
+				slip.close();
+			}
+		}
+		catch (...) { /* ignore slip creation errors */ }
+
 		return true;
-	}// Removes a candidate from Candidates.txt by their ID
+	}
 	bool removeCandidate(const string& candidateId) {
 		ifstream infile("Candidates.txt");
 		if (!infile.is_open()) {

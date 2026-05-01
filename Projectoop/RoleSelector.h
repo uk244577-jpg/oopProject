@@ -49,7 +49,10 @@ namespace Projectoop {
             this->btnVoter->Size = System::Drawing::Size(120, 40);
             this->btnVoter->TabIndex = 0;
             this->btnVoter->Text = L"Voter";
-            this->btnVoter->UseVisualStyleBackColor = true;
+            this->btnVoter->BackColor = System::Drawing::Color::FromArgb(40, 180, 99);
+            this->btnVoter->ForeColor = System::Drawing::Color::White;
+            this->btnVoter->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnVoter->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
             this->btnVoter->Click += gcnew System::EventHandler(this, &RoleSelector::btnVoter_Click);
             // 
             // btnAdmin
@@ -59,13 +62,18 @@ namespace Projectoop {
             this->btnAdmin->Size = System::Drawing::Size(120, 40);
             this->btnAdmin->TabIndex = 1;
             this->btnAdmin->Text = L"Admin";
-            this->btnAdmin->UseVisualStyleBackColor = true;
+            this->btnAdmin->BackColor = System::Drawing::Color::FromArgb(40, 180, 99);
+            this->btnAdmin->ForeColor = System::Drawing::Color::White;
+            this->btnAdmin->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnAdmin->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
             this->btnAdmin->Click += gcnew System::EventHandler(this, &RoleSelector::btnAdmin_Click);
             // 
             // RoleSelector
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+            this->BackColor = System::Drawing::Color::Black;
+            this->ForeColor = System::Drawing::Color::White;
             this->ClientSize = System::Drawing::Size(200, 160);
             this->Controls->Add(this->btnAdmin);
             this->Controls->Add(this->btnVoter);

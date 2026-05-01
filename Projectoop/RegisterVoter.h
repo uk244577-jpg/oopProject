@@ -59,6 +59,7 @@ namespace Projectoop {
             this->lblUser->Size = System::Drawing::Size(55, 13);
             this->lblUser->TabIndex = 0;
             this->lblUser->Text = L"Username";
+            this->lblUser->ForeColor = System::Drawing::Color::White;
             // 
             // txtUser
             // 
@@ -66,6 +67,8 @@ namespace Projectoop {
             this->txtUser->Name = L"txtUser";
             this->txtUser->Size = System::Drawing::Size(200, 20);
             this->txtUser->TabIndex = 1;
+            this->txtUser->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+            this->txtUser->ForeColor = System::Drawing::Color::White;
             // 
             // lblPass
             // 
@@ -75,6 +78,7 @@ namespace Projectoop {
             this->lblPass->Size = System::Drawing::Size(53, 13);
             this->lblPass->TabIndex = 2;
             this->lblPass->Text = L"Password";
+            this->lblPass->ForeColor = System::Drawing::Color::White;
             // 
             // txtPass
             // 
@@ -83,6 +87,8 @@ namespace Projectoop {
             this->txtPass->Size = System::Drawing::Size(200, 20);
             this->txtPass->TabIndex = 3;
             this->txtPass->UseSystemPasswordChar = true;
+            this->txtPass->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+            this->txtPass->ForeColor = System::Drawing::Color::White;
             // 
             // lblVoterId
             // 
@@ -92,6 +98,7 @@ namespace Projectoop {
             this->lblVoterId->Size = System::Drawing::Size(50, 13);
             this->lblVoterId->TabIndex = 4;
             this->lblVoterId->Text = L"Voter ID";
+            this->lblVoterId->ForeColor = System::Drawing::Color::White;
             // 
             // txtVoterId
             // 
@@ -99,6 +106,8 @@ namespace Projectoop {
             this->txtVoterId->Name = L"txtVoterId";
             this->txtVoterId->Size = System::Drawing::Size(200, 20);
             this->txtVoterId->TabIndex = 5;
+            this->txtVoterId->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+            this->txtVoterId->ForeColor = System::Drawing::Color::White;
             // 
             // btnRegister
             // 
@@ -107,7 +116,10 @@ namespace Projectoop {
             this->btnRegister->Size = System::Drawing::Size(90, 30);
             this->btnRegister->TabIndex = 6;
             this->btnRegister->Text = L"Register";
-            this->btnRegister->UseVisualStyleBackColor = true;
+            this->btnRegister->BackColor = System::Drawing::Color::FromArgb(40, 180, 99);
+            this->btnRegister->ForeColor = System::Drawing::Color::White;
+            this->btnRegister->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnRegister->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
             this->btnRegister->Click += gcnew System::EventHandler(this, &RegisterVoter::btnRegister_Click);
             // 
             // btnCancel
@@ -117,13 +129,18 @@ namespace Projectoop {
             this->btnCancel->Size = System::Drawing::Size(90, 30);
             this->btnCancel->TabIndex = 7;
             this->btnCancel->Text = L"Cancel";
-            this->btnCancel->UseVisualStyleBackColor = true;
+            this->btnCancel->BackColor = System::Drawing::Color::FromArgb(45, 45, 45);
+            this->btnCancel->ForeColor = System::Drawing::Color::White;
+            this->btnCancel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnCancel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
             this->btnCancel->Click += gcnew System::EventHandler(this, &RegisterVoter::btnCancel_Click);
             // 
             // RegisterVoter
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+            this->BackColor = System::Drawing::Color::Black;
+            this->ForeColor = System::Drawing::Color::White;
             this->ClientSize = System::Drawing::Size(260, 230);
             this->Controls->Add(this->btnCancel);
             this->Controls->Add(this->btnRegister);

@@ -2,6 +2,7 @@
 #pragma once
 #include "Backend.h"
 #include "forgetpassword.h" // Add this line
+#include "VoterDashboard.h"
 #include <msclr\marshal_cppstd.h> 
 
 using namespace System;
@@ -133,8 +134,9 @@ namespace Projectoop {
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::SystemColors::ButtonFace;
+          this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::Color::Black;
+			this->ForeColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(480, 326);
 			this->Controls->Add(this->linkForgetPassword);
 			this->Controls->Add(this->btnLogin);
@@ -145,8 +147,28 @@ namespace Projectoop {
 			this->Name = L"MyForm";
 			this->Text = L"Username";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
-			this->ResumeLayout(false);
+          this->ResumeLayout(false);
 			this->PerformLayout();
+
+			// Apply black & white theme
+            this->label1->ForeColor = System::Drawing::Color::White;
+			this->label2->ForeColor = System::Drawing::Color::White;
+
+			System::Drawing::Color primaryGreen = System::Drawing::Color::FromArgb(40, 180, 99);
+			System::Drawing::Color dangerRed = System::Drawing::Color::FromArgb(231, 76, 60);
+			System::Drawing::Color darkBg = System::Drawing::Color::FromArgb(30, 30, 30);
+
+			this->txtUsername->BackColor = darkBg;
+			this->txtUsername->ForeColor = System::Drawing::Color::White;
+			this->txtPassword->BackColor = darkBg;
+			this->txtPassword->ForeColor = System::Drawing::Color::White;
+
+			this->btnLogin->BackColor = primaryGreen;
+			this->btnLogin->ForeColor = System::Drawing::Color::White;
+			this->btnLogin->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnLogin->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
+
+			this->linkForgetPassword->LinkColor = primaryGreen;
 
 		}
 #pragma endregion
@@ -170,10 +192,15 @@ namespace Projectoop {
 		bool foundVoted = false;
 
 		// 4. Validate the user!
-		if (fh.validateVoter(nativeUser, nativePass, foundId, foundVoted)) {
+        if (fh.validateVoter(nativeUser, nativePass, foundId, foundVoted)) {
 			MessageBox::Show("Login Successful!", "Welcome", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
-			// Later, you can add code here to open a Dashboard Form and hide this login screen.
+			// Open the voter dashboard and pass the voter id and voted status
+			String^ managedVoterId = gcnew String(foundId.c_str());
+			Projectoop::VoterDashboard^ dash = gcnew Projectoop::VoterDashboard(managedVoterId, foundVoted);
+			this->Hide();
+			dash->ShowDialog();
+			this->Show();
 		}
 		else {
 			MessageBox::Show("Invalid username or password.", "Login Failed", MessageBoxButtons::OK, MessageBoxIcon::Error);
