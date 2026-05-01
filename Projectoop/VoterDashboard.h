@@ -50,10 +50,6 @@ namespace Projectoop {
         System::Windows::Forms::Button^ btnRefresh;
         System::Windows::Forms::Button^ btnOpenSlip;
         System::ComponentModel::Container^ components;
-        String^ voterId;
-        bool hasVoted;
-
-        System::ComponentModel::Container ^components;
 
         void InitializeComponent(void)
         {
@@ -229,24 +225,7 @@ namespace Projectoop {
             else {
                 MessageBox::Show("Failed to record vote. Try again.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
                 }
-
-                msclr::interop::marshal_context context;
-                std::string n_vId = context.marshal_as<std::string>(voterId);
-                String^ selCid = searchForm->SelectedCandidateId;
-                std::string n_cId = context.marshal_as<std::string>(selCid);
-
-                Filehandler fh;
-                if (fh.markVoted(n_vId)) {
-                    std::ofstream voteOut("Votes.txt", std::ios::app);
-                    std::string dt = "";
-                    if (voteOut.is_open()) {
-                        time_t now = time(0);
-                        dt = ctime(&now);
-                        if (!dt.empty() && dt.back() == '\n') dt.pop_back();
-
-                        voteOut << n_vId << "|" << n_cId << "|" << dt << "\n";
-                        voteOut.close();
-                    }
+        }
 
         System::Void btnOpenSlip_Click(System::Object^ sender, System::EventArgs^ e) {
             String^ slipPath = "slip_" + voterId + ".txt";
@@ -255,6 +234,7 @@ namespace Projectoop {
             }
             catch (...) {
                 MessageBox::Show("Receipt not found.", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
+            }
         }
 
         System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e) {

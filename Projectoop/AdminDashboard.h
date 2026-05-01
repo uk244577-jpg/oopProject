@@ -23,6 +23,41 @@ namespace Projectoop {
             InitializeComponent();
         }
 
+        System::Void btnSearchCandidates_Click(System::Object^ sender, System::EventArgs^ e) {
+            // Use txtCandName as search input; if empty, refresh full list
+            String^ q = txtCandName->Text;
+            if (String::IsNullOrWhiteSpace(q)) {
+                RefreshCandidates();
+                return;
+            }
+
+            std::string query;
+            msclr::interop::marshal_context ctx;
+            query = ctx.marshal_as<std::string>(q);
+
+            listCandidates->Items->Clear();
+            std::ifstream in("Candidates.txt");
+            if (!in.is_open()) {
+                listCandidates->Items->Add("No candidates found.");
+                return;
+            }
+            std::string line;
+            while (std::getline(in, line)) {
+                if (line.empty()) continue;
+                // simple substring search across name and id
+                if (line.find(query) != std::string::npos) {
+                    std::string name, party, cid;
+                    std::stringstream ss(line);
+                    std::getline(ss, name, '|');
+                    std::getline(ss, party, '|');
+                    std::getline(ss, cid, '|');
+                    String^ displayStr = gcnew String(("ID: " + cid + " | " + name + " (" + party + ")").c_str());
+                    listCandidates->Items->Add(displayStr);
+                }
+            }
+            in.close();
+        }
+
     protected:
         ~AdminDashboard()
         {
@@ -408,14 +443,10 @@ namespace Projectoop {
         }
 
         System::Void btnViewResults_Click(System::Object^ sender, System::EventArgs^ e) {
+            // Ensure voter file exists
             std::ifstream voters("voter.txt");
             if (!voters.is_open()) {
-                // Try to create an empty voter file if it doesn't exist
                 std::ofstream create("voter.txt", std::ios::app);
-                if (!create.is_open()) {
-                    MessageBox::Show("Could not open or create voter file.");
-                    return;
-                }
                 create.close();
                 voters.open("voter.txt");
                 if (!voters.is_open()) {
@@ -424,14 +455,67 @@ namespace Projectoop {
                 }
             }
 
-        System::Void btnVotingHistory_Click(System::Object^ sender, System::EventArgs^ e) {
-            VotingHistory^ historyForm = gcnew VotingHistory();
-            historyForm->ShowDialog();
-        }
+            int total = 0;
+            int voted = 0;
+            std::string line;
+            while (std::getline(voters, line)) {
+                if (line.empty()) continue;
+                total++;
+                // parse fields: name|pass|id|votedFlag|
+                std::stringstream ss(line);
+                std::string f_name, f_pass, f_id, f_voted;
+                std::getline(ss, f_name, '|');
+                std::getline(ss, f_pass, '|');
+                std::getline(ss, f_id, '|');
+                std::getline(ss, f_voted, '|');
+                if (f_voted == "1") voted++;
+            }
+            voters.close();
 
-            // Open a dedicated results form to display turnout
             ViewResult^ vr = gcnew ViewResult(total, voted);
             vr->ShowDialog();
+        }
+
+        // Show voting history by reading votes.txt into a dialog
+        System::Void btnVotingHistory_Click(System::Object^ sender, System::EventArgs^ e) {
+            // Read votes
+            std::ifstream vin("votes.txt");
+            System::Windows::Forms::Form^ dlg = gcnew System::Windows::Forms::Form();
+            dlg->Text = L"Voting History";
+            dlg->ClientSize = System::Drawing::Size(480, 360);
+            dlg->StartPosition = FormStartPosition::CenterParent;
+            System::Windows::Forms::ListBox^ lb = (gcnew System::Windows::Forms::ListBox());
+            lb->Location = System::Drawing::Point(8, 8);
+            lb->Size = System::Drawing::Size(464, 300);
+            lb->BackColor = System::Drawing::Color::FromArgb(30,30,30);
+            lb->ForeColor = System::Drawing::Color::White;
+            dlg->Controls->Add(lb);
+            System::Windows::Forms::Button^ btnClose = (gcnew System::Windows::Forms::Button());
+            btnClose->Text = L"Close";
+            btnClose->Location = System::Drawing::Point(200, 320);
+            btnClose->DialogResult = System::Windows::Forms::DialogResult::OK;
+            dlg->Controls->Add(btnClose);
+
+            if (vin.is_open()) {
+                std::string vline;
+                while (std::getline(vin, vline)) {
+                    if (vline.empty()) continue;
+                    // Format: voterID|candidateId|timestamp
+                    std::stringstream ss(vline);
+                    std::string vid, cid, ts;
+                    std::getline(ss, vid, '|');
+                    std::getline(ss, cid, '|');
+                    std::getline(ss, ts, '|');
+                    std::string display = vid + " -> " + cid + " @ " + ts;
+                    lb->Items->Add(gcnew String(display.c_str()));
+                }
+                vin.close();
+            }
+            else {
+                lb->Items->Add("No voting history found.");
+            }
+
+            dlg->ShowDialog();
         }
 
         System::Void btnResetElection_Click(System::Object^ sender, System::EventArgs^ e) {
