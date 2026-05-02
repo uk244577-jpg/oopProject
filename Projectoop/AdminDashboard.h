@@ -477,27 +477,6 @@ namespace Projectoop {
             vr->ShowDialog();
         }
 
-            int total = 0;
-            int voted = 0;
-            std::string line;
-            while (std::getline(voters, line)) {
-                if (line.empty()) continue;
-                total++;
-                // parse fields: name|pass|id|votedFlag|
-                std::stringstream ss(line);
-                std::string f_name, f_pass, f_id, f_voted;
-                std::getline(ss, f_name, '|');
-                std::getline(ss, f_pass, '|');
-                std::getline(ss, f_id, '|');
-                std::getline(ss, f_voted, '|');
-                if (f_voted == "1") voted++;
-            }
-            voters.close();
-
-        System::Void btnSearchCandidates_Click(System::Object^ sender, System::EventArgs^ e) {
-            MessageBox::Show("Search functionality coming soon.", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
-        }
-
         // Show voting history by reading votes.txt into a dialog
         System::Void btnVotingHistory_Click(System::Object^ sender, System::EventArgs^ e) {
             // Read votes

@@ -1,5 +1,5 @@
 Voter ID: 123
-Voter Name: hunain
-Voted For (Candidate ID): C2
-Voted At: 2026-05-01 21:29:23
+Voter Name: usman durrani
+Voted For (Candidate ID): C1
+Voted At: 2026-05-02 15:37:49
 Thank you for voting.
