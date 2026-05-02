@@ -1,11 +1,11 @@
 #pragma once
 #include "Backend.h"
-#include "CandidateSearch.h" // Add the new form here
+#include "CandidateSearch.h"
 #include <msclr\marshal_cppstd.h>
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <ctime> // Add ctime for timestamps
+#include <ctime>
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -20,15 +20,21 @@ namespace Projectoop {
     {
     private:
         String^ voterId;
-        String^ voterUsername;
         bool hasVoted;
+        System::Windows::Forms::ListBox^ lstCandidates;
+        System::Windows::Forms::Button^ btnVote;
+        System::Windows::Forms::Label^ lblTitle;
+        System::Windows::Forms::Label^ lblStatus;
+        System::Windows::Forms::Button^ btnRefresh;
+        System::Windows::Forms::Button^ btnOpenSlip;
+        System::ComponentModel::Container^ components;
 
     public:
-        VoterDashboard(String^ voterId, bool hasVoted)
+        VoterDashboard(String^ vId, bool voted)
         {
             InitializeComponent();
-            this->voterId = voterId;
-            this->hasVoted = hasVoted;
+            this->voterId = vId;
+            this->hasVoted = voted;
             lblStatus->Text = hasVoted ? "Status: Already voted" : "Status: Not voted yet";
             LoadCandidates();
         }
@@ -41,15 +47,6 @@ namespace Projectoop {
                 delete components;
             }
         }
-
-    private:
-        System::Windows::Forms::ListBox^ lstCandidates;
-        System::Windows::Forms::Button^ btnVote;
-        System::Windows::Forms::Label^ lblTitle;
-        System::Windows::Forms::Label^ lblStatus;
-        System::Windows::Forms::Button^ btnRefresh;
-        System::Windows::Forms::Button^ btnOpenSlip;
-        System::ComponentModel::Container^ components;
 
         void InitializeComponent(void)
         {
@@ -204,7 +201,7 @@ namespace Projectoop {
             // confirm
             if (MessageBox::Show(String::Format("Confirm vote for {0}?", sel), "Confirm Vote", MessageBoxButtons::YesNo, MessageBoxIcon::Question) != System::Windows::Forms::DialogResult::Yes) {
                 return;
-                }
+            }
 
             // call backend
             msclr::interop::marshal_context ctx;
@@ -219,12 +216,14 @@ namespace Projectoop {
                 String^ slipPath = "slip_" + voterId + ".txt";
                 try {
                     System::Diagnostics::Process::Start(slipPath);
+                }
+                catch (...) {
+                    // ignore if cannot open
+                }
             }
-                catch (...) { /* ignore if cannot open */ }
-        }
             else {
                 MessageBox::Show("Failed to record vote. Try again.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-                }
+            }
         }
 
         System::Void btnOpenSlip_Click(System::Object^ sender, System::EventArgs^ e) {

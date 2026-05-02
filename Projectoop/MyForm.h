@@ -112,9 +112,9 @@ namespace Projectoop {
 			// 
 			// btnLogin
 			// 
-			this->btnLogin->Location = System::Drawing::Point(187, 202);
+			this->btnLogin->Location = System::Drawing::Point(170, 195);
 			this->btnLogin->Name = L"btnLogin";
-			this->btnLogin->Size = System::Drawing::Size(75, 23);
+			this->btnLogin->Size = System::Drawing::Size(120, 40);
 			this->btnLogin->TabIndex = 7;
 			this->btnLogin->Text = L"Login";
 			this->btnLogin->UseVisualStyleBackColor = true;

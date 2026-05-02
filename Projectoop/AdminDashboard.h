@@ -1,6 +1,7 @@
 #pragma once
 #include "Backend.h"
 #include "ViewResult.h"
+#include "VotingHistory.h"
 #include <msclr\marshal_cppstd.h>
 #include <fstream>
 #include <string>
@@ -166,6 +167,8 @@ namespace Projectoop {
             this->groupAddCandidate->Location = System::Drawing::Point(280, 12);
             this->groupAddCandidate->Size = System::Drawing::Size(300, 100);
             this->groupAddCandidate->Text = L"Add Candidate";
+            this->groupAddCandidate->ForeColor = System::Drawing::Color::White;
+            this->groupAddCandidate->BackColor = System::Drawing::Color::Black;
 
             this->lblCandName->Location = System::Drawing::Point(10, 25);
             this->lblCandName->Size = System::Drawing::Size(50, 20);
@@ -204,6 +207,8 @@ namespace Projectoop {
             this->groupRemoveCandidate->Location = System::Drawing::Point(280, 120);
             this->groupRemoveCandidate->Size = System::Drawing::Size(300, 60);
             this->groupRemoveCandidate->Text = L"Remove Candidate";
+            this->groupRemoveCandidate->ForeColor = System::Drawing::Color::White;
+            this->groupRemoveCandidate->BackColor = System::Drawing::Color::Black;
 
             this->lblRemoveId->Location = System::Drawing::Point(10, 25);
             this->lblRemoveId->Size = System::Drawing::Size(50, 20);
@@ -231,6 +236,8 @@ namespace Projectoop {
             this->groupVoter->Location = System::Drawing::Point(280, 190);
             this->groupVoter->Size = System::Drawing::Size(300, 60);
             this->groupVoter->Text = L"Delete Voter";
+            this->groupVoter->ForeColor = System::Drawing::Color::White;
+            this->groupVoter->BackColor = System::Drawing::Color::Black;
 
             this->lblVoterUser->Location = System::Drawing::Point(10, 25);
             this->lblVoterUser->Size = System::Drawing::Size(50, 20);
@@ -258,6 +265,8 @@ namespace Projectoop {
             this->groupSystem->Location = System::Drawing::Point(280, 260);
             this->groupSystem->Size = System::Drawing::Size(300, 80); // increased height
             this->groupSystem->Text = L"System Operations";
+            this->groupSystem->ForeColor = System::Drawing::Color::White;
+            this->groupSystem->BackColor = System::Drawing::Color::Black;
 
             this->btnViewResults->Location = System::Drawing::Point(10, 20);
             this->btnViewResults->Size = System::Drawing::Size(135, 23);
@@ -296,6 +305,8 @@ namespace Projectoop {
             this->groupAdmin->Location = System::Drawing::Point(280, 350);
             this->groupAdmin->Size = System::Drawing::Size(300, 100);
             this->groupAdmin->Text = L"Register New Admin";
+            this->groupAdmin->ForeColor = System::Drawing::Color::White;
+            this->groupAdmin->BackColor = System::Drawing::Color::Black;
 
             this->lblAdminUser->Location = System::Drawing::Point(10, 25);
             this->lblAdminUser->Size = System::Drawing::Size(50, 20);
@@ -443,17 +454,28 @@ namespace Projectoop {
         }
 
         System::Void btnViewResults_Click(System::Object^ sender, System::EventArgs^ e) {
-            // Ensure voter file exists
-            std::ifstream voters("voter.txt");
-            if (!voters.is_open()) {
-                std::ofstream create("voter.txt", std::ios::app);
-                create.close();
-                voters.open("voter.txt");
-                if (!voters.is_open()) {
-                    MessageBox::Show("Could not open voter file.");
-                    return;
+            std::ifstream candidates("Candidates.txt");
+            int total = 0, voted = 0;
+            if (candidates.is_open()) {
+                std::string line;
+                while (std::getline(candidates, line)) {
+                    if (!line.empty()) total++;
                 }
+                candidates.close();
             }
+
+            std::ifstream votes("Votes.txt");
+            if (votes.is_open()) {
+                std::string line;
+                while (std::getline(votes, line)) {
+                    if (!line.empty()) voted++;
+                }
+                votes.close();
+            }
+
+            ViewResult^ vr = gcnew ViewResult(total, voted);
+            vr->ShowDialog();
+        }
 
             int total = 0;
             int voted = 0;
@@ -472,8 +494,8 @@ namespace Projectoop {
             }
             voters.close();
 
-            ViewResult^ vr = gcnew ViewResult(total, voted);
-            vr->ShowDialog();
+        System::Void btnSearchCandidates_Click(System::Object^ sender, System::EventArgs^ e) {
+            MessageBox::Show("Search functionality coming soon.", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
         }
 
         // Show voting history by reading votes.txt into a dialog

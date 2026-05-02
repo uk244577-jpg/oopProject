@@ -1,1 +1,2 @@
-Hunain|pti|C2
+hunain |pti|C1
+usman|ttp|C2
