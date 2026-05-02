@@ -1,7 +1,8 @@
 #pragma once
 #include "Backend.h"
 #include "AdminVoterSearch.h"
-#include "FullResults.h"  // ADD THIS LINE
+#include "FullResults.h"
+#include "VoteTracker.h"
 #include <msclr\marshal_cppstd.h>
 #include <fstream>
 #include <string>
@@ -53,7 +54,7 @@ namespace Projectoop {
         System::Windows::Forms::GroupBox^ groupSystem;
         System::Windows::Forms::Button^ btnViewResults;
         System::Windows::Forms::Button^ btnResetElection;
-        System::Windows::Forms::Button^ btnFullResults;  // ADD THIS LINE
+        System::Windows::Forms::Button^ btnFullResults;
         System::Windows::Forms::GroupBox^ groupAdmin;
         System::Windows::Forms::TextBox^ txtAdminUser;
         System::Windows::Forms::TextBox^ txtAdminPass;
@@ -86,7 +87,7 @@ namespace Projectoop {
             this->groupSystem = (gcnew System::Windows::Forms::GroupBox());
             this->btnViewResults = (gcnew System::Windows::Forms::Button());
             this->btnResetElection = (gcnew System::Windows::Forms::Button());
-            this->btnFullResults = (gcnew System::Windows::Forms::Button());  // ADD THIS LINE
+            this->btnFullResults = (gcnew System::Windows::Forms::Button());
             this->groupAdmin = (gcnew System::Windows::Forms::GroupBox());
             this->lblAdminUser = (gcnew System::Windows::Forms::Label());
             this->txtAdminUser = (gcnew System::Windows::Forms::TextBox());
@@ -185,7 +186,7 @@ namespace Projectoop {
 
             // groupSystem - MODIFIED SECTION
             this->groupSystem->Location = System::Drawing::Point(280, 260);
-            this->groupSystem->Size = System::Drawing::Size(300, 90);  // Increased height
+            this->groupSystem->Size = System::Drawing::Size(300, 90);
             this->groupSystem->Text = L"System Operations";
 
             this->btnViewResults->Location = System::Drawing::Point(20, 22);
@@ -206,10 +207,10 @@ namespace Projectoop {
 
             this->groupSystem->Controls->Add(this->btnViewResults);
             this->groupSystem->Controls->Add(this->btnResetElection);
-            this->groupSystem->Controls->Add(this->btnFullResults);  // ADD THIS
+            this->groupSystem->Controls->Add(this->btnFullResults);
 
             // groupAdmin
-            this->groupAdmin->Location = System::Drawing::Point(280, 360);  // Moved down
+            this->groupAdmin->Location = System::Drawing::Point(280, 360);
             this->groupAdmin->Size = System::Drawing::Size(300, 100);
             this->groupAdmin->Text = L"Register New Admin";
 
@@ -432,7 +433,7 @@ namespace Projectoop {
 
             std::ofstream out("admins.txt", std::ios::app);
             if (out.is_open()) {
-                out << name << "|" << pass << "|" << adminId << "\n";
+                out << name << "|" << pass << "" << adminId << "\n";
                 out.close();
                 MessageBox::Show(gcnew String(("Admin registered with ID: " + adminId).c_str()));
                 txtAdminUser->Clear();

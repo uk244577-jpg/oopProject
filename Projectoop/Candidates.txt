@@ -2,3 +2,7 @@ faizan|pti|C1
 hunain|n league|C2
 usman|ttp|C3
 khanan|tlp|C4
+<<<<<<< HEAD
+=======
+Hamza|Awaam Raaj Tehreek|C5
+>>>>>>> 86b9c003414bd29fc68e9b661e396c6a35455e1a

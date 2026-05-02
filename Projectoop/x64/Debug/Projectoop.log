@@ -62,4 +62,5 @@ C:\Users\Hamza\OneDrive - FAST National University\Desktop\oopProj\oopProject\Pr
   
   Generating Code...
   forgetpassword.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+.NETFramework,Version=v4.7.2.AssemblyAttributes.obj : warning LNK4020: a type record in 'c:\users\hamza\onedrive - fast national university\desktop\oopproj\oopproject\projectoop\x64\debug\vc143.pdb' is corrupted; some symbols and types may not be accessible from the debugger
   Projectoop.vcxproj -> C:\Users\Hamza\OneDrive - FAST National University\Desktop\oopProj\oopProject\x64\Debug\Projectoop.exe

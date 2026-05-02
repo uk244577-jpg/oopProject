@@ -1,0 +1,10 @@
+C:\Users\Hamza\OneDrive - FAST National University\Desktop\oopProj\oopProject\Projectoop\x64\Debug\Projectoop.vcxproj.AssemblyReference.cache
+C:\Users\Hamza\OneDrive - FAST National University\Desktop\oopProj\oopProject\Projectoop\x64\Debug\Projectoop.forgetpassword.resources
+C:\Users\Hamza\OneDrive - FAST National University\Desktop\oopProj\oopProject\Projectoop\x64\Debug\Projectoop.MyForm.resources
+C:\Users\Hamza\OneDrive - FAST National University\Desktop\oopProj\oopProject\Projectoop\x64\Debug\Projectoop.RoleSelector.resources
+C:\Users\Hamza\OneDrive - FAST National University\Desktop\oopProj\oopProject\Projectoop\x64\Debug\Projectoop.vcxproj.GenerateResource.cache
+C:\Users\Shoaib ul Hassan\source\repos\oopProject\Projectoop\x64\Debug\Projectoop.vcxproj.AssemblyReference.cache
+C:\Users\Shoaib ul Hassan\source\repos\oopProject\Projectoop\x64\Debug\Projectoop.forgetpassword.resources
+C:\Users\Shoaib ul Hassan\source\repos\oopProject\Projectoop\x64\Debug\Projectoop.MyForm.resources
+C:\Users\Shoaib ul Hassan\source\repos\oopProject\Projectoop\x64\Debug\Projectoop.RoleSelector.resources
+C:\Users\Shoaib ul Hassan\source\repos\oopProject\Projectoop\x64\Debug\Projectoop.vcxproj.GenerateResource.cache
