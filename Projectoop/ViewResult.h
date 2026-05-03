@@ -1,5 +1,6 @@
 // ViewResult.h - simple form to display election turnout
 #pragma once
+#include "UITheme.h"
 
 #include <fstream>
 #include <map>
@@ -28,6 +29,7 @@ namespace Projectoop {
         ViewResult(int total, int voted)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
             int yet = total - voted;
             int percent = total > 0 ? (voted * 100) / total : 0;
 
@@ -150,7 +152,7 @@ namespace Projectoop {
             this->SuspendLayout();
 
             // Form
-            this->ClientSize = System::Drawing::Size(520, 180);
+            this->ClientSize = System::Drawing::Size(900, 600);
             this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
             this->MaximizeBox = false;
             this->MinimizeBox = false;
@@ -161,44 +163,44 @@ namespace Projectoop {
             // lblTotal
             this->lblTotal->Location = System::Drawing::Point(20, 20);
             this->lblTotal->ForeColor = System::Drawing::Color::White;
-            this->lblTotal->Size = System::Drawing::Size(280, 20);
+            this->lblTotal->Size = System::Drawing::Size(380, 24);
             this->lblTotal->Text = L"Total Registered: 0";
 
             // lblVoted
-            this->lblVoted->Location = System::Drawing::Point(20, 50);
+            this->lblVoted->Location = System::Drawing::Point(20, 60);
             this->lblVoted->ForeColor = System::Drawing::Color::White;
-            this->lblVoted->Size = System::Drawing::Size(280, 20);
+            this->lblVoted->Size = System::Drawing::Size(380, 24);
             this->lblVoted->Text = L"Votes Cast: 0";
 
             // lblYet
-            this->lblYet->Location = System::Drawing::Point(20, 80);
+            this->lblYet->Location = System::Drawing::Point(20, 100);
             this->lblYet->ForeColor = System::Drawing::Color::White;
-            this->lblYet->Size = System::Drawing::Size(280, 20);
+            this->lblYet->Size = System::Drawing::Size(380, 24);
             this->lblYet->Text = L"Yet to Vote: 0";
 
             // lblPercent
-            this->lblPercent->Location = System::Drawing::Point(20, 110);
+            this->lblPercent->Location = System::Drawing::Point(20, 140);
             this->lblPercent->ForeColor = System::Drawing::Color::White;
-            this->lblPercent->Size = System::Drawing::Size(280, 20);
+            this->lblPercent->Size = System::Drawing::Size(380, 24);
             this->lblPercent->Text = L"Turnout: 0%";
 
             // Candidate results list
             this->lstCandidateResults = (gcnew System::Windows::Forms::ListBox());
-            this->lstCandidateResults->Location = System::Drawing::Point(320, 20);
-            this->lstCandidateResults->Size = System::Drawing::Size(180, 120);
+            this->lstCandidateResults->Location = System::Drawing::Point(420, 20);
+            this->lstCandidateResults->Size = System::Drawing::Size(440, 480);
             this->lstCandidateResults->BackColor = System::Drawing::Color::FromArgb(30,30,30);
             this->lstCandidateResults->ForeColor = System::Drawing::Color::White;
 
             // Winner label
             this->lblWinner = (gcnew System::Windows::Forms::Label());
-            this->lblWinner->Location = System::Drawing::Point(20, 140);
-            this->lblWinner->Size = System::Drawing::Size(380, 20);
+            this->lblWinner->Location = System::Drawing::Point(20, 220);
+            this->lblWinner->Size = System::Drawing::Size(380, 24);
             this->lblWinner->ForeColor = System::Drawing::Color::White;
             this->lblWinner->Text = L"Winner: -";
 
             // btnClose
-            this->btnClose->Location = System::Drawing::Point(420, 140);
-            this->btnClose->Size = System::Drawing::Size(80, 28);
+            this->btnClose->Location = System::Drawing::Point(760, 520);
+            this->btnClose->Size = System::Drawing::Size(100, 36);
             this->btnClose->Text = L"Close";
             this->btnClose->BackColor = System::Drawing::Color::FromArgb(40, 180, 99);
             this->btnClose->ForeColor = System::Drawing::Color::White;

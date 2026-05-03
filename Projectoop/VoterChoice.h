@@ -1,5 +1,5 @@
 #pragma once
-
+#include "UITheme.h"
 namespace Projectoop {
 
     using namespace System;
@@ -15,6 +15,7 @@ namespace Projectoop {
         VoterChoice(void)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
         }
 
     protected:

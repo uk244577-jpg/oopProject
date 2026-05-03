@@ -127,6 +127,47 @@ public:
 		outFile.close();
 		return true;
 	}
+
+	bool updateCandidateName(const string& candidateId, const string& newName) {
+		ifstream infile("Candidates.txt");
+		if (!infile.is_open()) {
+			cout << "  Could not open Candidates file.\n";
+			return false;
+		}
+
+		string allLines, line;
+		bool found = false;
+
+		while (getline(infile, line)) {
+			if (line == "") continue;
+			string name, party, cid;
+			stringstream ss(line);
+			getline(ss, name, '|');
+			getline(ss, party, '|');
+			getline(ss, cid, '|');
+			if (!cid.empty() && cid.back() == '\r') cid.pop_back();
+
+			if (cid == candidateId) {
+				found = true;
+				allLines += newName + "|" + party + "|" + cid + "\n";
+			}
+			else {
+				allLines += line + "\n";
+			}
+		}
+		infile.close();
+
+		if (!found) {
+			cout << "  No candidate found with ID: " << candidateId << "\n";
+			return false;
+		}
+
+		ofstream outFile("Candidates.txt", ios::trunc);
+		if (!outFile.is_open()) return false;
+		outFile << allLines;
+		outFile.close();
+		return true;
+	}
     // Mark voter as voted. If candidateId is provided, also record vote and include candidate on slip.
 	bool markVoted(const string& voterID, const string& candidateId = "") {
 		ifstream infile(voterFile); // Open in read mode

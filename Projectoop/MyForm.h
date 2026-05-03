@@ -3,6 +3,7 @@
 #include "Backend.h"
 #include "forgetpassword.h" // Add this line
 #include "VoterDashboard.h"
+#include "UITheme.h"
 #include <msclr\marshal_cppstd.h> 
 
 using namespace System;
@@ -26,6 +27,7 @@ namespace Projectoop {
 		MyForm(void)
 		{
 			InitializeComponent();
+          UITheme::ApplyTheme(this);
 			//
 			//TODO: Add the constructor code here
 			//
@@ -79,42 +81,44 @@ namespace Projectoop {
 			// 
 			this->label1->AutoSize = true;
 			this->label1->BackColor = System::Drawing::Color::Transparent;
-			this->label1->Location = System::Drawing::Point(184, 45);
+           this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 11, System::Drawing::FontStyle::Bold));
+           this->label1->Location = System::Drawing::Point(250, 120);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(53, 13);
 			this->label1->TabIndex = 3;
-			this->label1->Text = L"username";
+           this->label1->Text = L"Username";
 			this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(185, 117);
+            this->label2->Font = (gcnew System::Drawing::Font(L"Segoe UI", 11, System::Drawing::FontStyle::Bold));
+          this->label2->Location = System::Drawing::Point(250, 200);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(52, 13);
 			this->label2->TabIndex = 4;
-			this->label2->Text = L"password";
+           this->label2->Text = L"Password";
 			// 
 			// txtUsername
 			// 
-			this->txtUsername->Location = System::Drawing::Point(169, 65);
+          this->txtUsername->Location = System::Drawing::Point(250, 145);
 			this->txtUsername->Name = L"txtUsername";
-			this->txtUsername->Size = System::Drawing::Size(100, 20);
+           this->txtUsername->Size = System::Drawing::Size(280, 28);
 			this->txtUsername->TabIndex = 5;
 			// 
 			// txtPassword
 			// 
-			this->txtPassword->Location = System::Drawing::Point(169, 145);
+         this->txtPassword->Location = System::Drawing::Point(250, 225);
 			this->txtPassword->Name = L"txtPassword";
-			this->txtPassword->Size = System::Drawing::Size(100, 20);
+           this->txtPassword->Size = System::Drawing::Size(280, 28);
 			this->txtPassword->TabIndex = 6;
 			this->txtPassword->UseSystemPasswordChar = true;
 			// 
 			// btnLogin
 			// 
-			this->btnLogin->Location = System::Drawing::Point(170, 195);
+            this->btnLogin->Location = System::Drawing::Point(250, 280);
 			this->btnLogin->Name = L"btnLogin";
-			this->btnLogin->Size = System::Drawing::Size(120, 40);
+          this->btnLogin->Size = System::Drawing::Size(280, 50);
 			this->btnLogin->TabIndex = 7;
 			this->btnLogin->Text = L"Login";
 			this->btnLogin->UseVisualStyleBackColor = true;
@@ -123,7 +127,7 @@ namespace Projectoop {
 			// linkForgetPassword
 			// 
 			this->linkForgetPassword->AutoSize = true;
-			this->linkForgetPassword->Location = System::Drawing::Point(302, 173);
+          this->linkForgetPassword->Location = System::Drawing::Point(250, 340);
 			this->linkForgetPassword->Name = L"linkForgetPassword";
 			this->linkForgetPassword->Size = System::Drawing::Size(82, 13);
 			this->linkForgetPassword->TabIndex = 8;
@@ -137,7 +141,7 @@ namespace Projectoop {
           this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::Black;
 			this->ForeColor = System::Drawing::Color::White;
-			this->ClientSize = System::Drawing::Size(480, 326);
+         this->ClientSize = System::Drawing::Size(800, 520);
 			this->Controls->Add(this->linkForgetPassword);
 			this->Controls->Add(this->btnLogin);
 			this->Controls->Add(this->label2);

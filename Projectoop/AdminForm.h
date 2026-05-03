@@ -1,5 +1,6 @@
 #pragma once
 #include "BackendAdmin.h"
+#include "UITheme.h"
 #include <msclr\marshal_cppstd.h>
 
 using namespace System;
@@ -34,6 +35,7 @@ namespace Projectoop {
         AddCandidateForm(Admin* admin)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
             adminObj = admin;
         }
 
@@ -178,6 +180,7 @@ namespace Projectoop {
         RemoveCandidateForm(Admin* admin)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
             adminObj = admin;
         }
 
@@ -302,6 +305,7 @@ namespace Projectoop {
         DeleteVoterForm(Admin* admin)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
             adminObj = admin;
         }
 
@@ -427,6 +431,7 @@ namespace Projectoop {
         AdminDashboard(Admin* admin, Filehandler* filehandler)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
             adminObj = admin;
             fh = filehandler;
             RefreshCandidateList();
@@ -626,6 +631,7 @@ namespace Projectoop {
         AdminForm(void)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
             adminObj = new Admin();
             fh = new Filehandler();
         }

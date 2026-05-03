@@ -1,5 +1,6 @@
 #pragma once
 #include "Backend.h"
+#include "UITheme.h"
 #include <msclr\marshal_cppstd.h>
 
 namespace Projectoop {
@@ -17,6 +18,7 @@ namespace Projectoop {
         RegisterVoter(void)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
         }
 
     protected:
@@ -141,7 +143,7 @@ namespace Projectoop {
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->BackColor = System::Drawing::Color::Black;
             this->ForeColor = System::Drawing::Color::White;
-            this->ClientSize = System::Drawing::Size(260, 230);
+            this->ClientSize = System::Drawing::Size(600, 350);
             this->Controls->Add(this->btnCancel);
             this->Controls->Add(this->btnRegister);
             this->Controls->Add(this->txtVoterId);

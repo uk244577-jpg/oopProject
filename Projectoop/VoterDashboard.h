@@ -1,6 +1,7 @@
 #pragma once
 #include "Backend.h"
 #include "CandidateSearch.h"
+#include "UITheme.h"
 #include <msclr\marshal_cppstd.h>
 #include <fstream>
 #include <string>
@@ -24,7 +25,8 @@ namespace Projectoop {
     private:
         String^ voterId;
         bool hasVoted;
-        System::Windows::Forms::ListBox^ lstCandidates;
+        System::Windows::Forms::ListView^ lstCandidates;
+        System::Windows::Forms::ImageList^ candidateImages;
         System::Windows::Forms::Button^ btnVote;
         System::Windows::Forms::Label^ lblTitle;
         System::Windows::Forms::Label^ lblStatus;
@@ -33,10 +35,63 @@ namespace Projectoop {
         System::Windows::Forms::Button^ btnShowResults;
         System::ComponentModel::Container^ components;
 
+        String^ FindCandidatePicturesPath() {
+            // Prefer a folder next to the executable (easiest for deployment),
+            // but also support the repo layout where images live under `Projectoop\candidate pictures`.
+            String^ baseDir = System::AppDomain::CurrentDomain->BaseDirectory;
+            String^ exeCandidateDir = System::IO::Path::Combine(baseDir, "candidate pictures");
+            if (System::IO::Directory::Exists(exeCandidateDir)) {
+                return exeCandidateDir;
+            }
+
+            String^ foundSourceDir = nullptr;
+            String^ current = baseDir;
+            for (int i = 0; i < 10; i++) {
+                cli::array<String^>^ probe = gcnew cli::array<String^>(2) {
+                    System::IO::Path::Combine(current, "candidate pictures"),
+                    System::IO::Path::Combine(current, "Projectoop\\candidate pictures")
+                };
+
+                for each (String^ p in probe) {
+                    if (System::IO::Directory::Exists(p)) {
+                        foundSourceDir = p;
+                        break;
+                    }
+                }
+
+                if (foundSourceDir != nullptr) break;
+                current = System::IO::Path::GetFullPath(System::IO::Path::Combine(current, ".."));
+            }
+
+            if (foundSourceDir == nullptr) {
+                return nullptr;
+            }
+
+            // If we found images in the source tree, copy them next to the exe so the dashboard can load them reliably.
+            try {
+                System::IO::Directory::CreateDirectory(exeCandidateDir);
+                cli::array<String^>^ files = System::IO::Directory::GetFiles(foundSourceDir, "*.*");
+                for each (String^ src in files) {
+                    String^ ext = System::IO::Path::GetExtension(src)->ToLower();
+                    if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".bmp" && ext != ".gif" && ext != ".jfif") continue;
+                    String^ dst = System::IO::Path::Combine(exeCandidateDir, System::IO::Path::GetFileName(src));
+                    if (!System::IO::File::Exists(dst)) {
+                        System::IO::File::Copy(src, dst);
+                    }
+                }
+                return exeCandidateDir;
+            }
+            catch (...) {
+                // If copying fails (permissions/locked files), fall back to using the discovered folder.
+                return foundSourceDir;
+            }
+        }
+
     public:
         VoterDashboard(String^ vId, bool voted)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
             this->voterId = vId;
             this->hasVoted = voted;
             lblStatus->Text = hasVoted ? "Status: Already voted" : "Status: Not voted yet";
@@ -54,7 +109,8 @@ namespace Projectoop {
 
         void InitializeComponent(void)
         {
-            this->lstCandidates = (gcnew System::Windows::Forms::ListBox());
+            this->lstCandidates = (gcnew System::Windows::Forms::ListView());
+            this->candidateImages = (gcnew System::Windows::Forms::ImageList());
             this->btnVote = (gcnew System::Windows::Forms::Button());
             this->lblTitle = (gcnew System::Windows::Forms::Label());
             this->lblStatus = (gcnew System::Windows::Forms::Label());
@@ -68,48 +124,54 @@ namespace Projectoop {
             this->lblTitle->AutoSize = true;
             this->lblTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 14, System::Drawing::FontStyle::Bold));
             this->lblTitle->Location = System::Drawing::Point(16, 16);
-            this->lblTitle->Size = System::Drawing::Size(220, 30);
+            this->lblTitle->Size = System::Drawing::Size(240, 30);
             this->lblTitle->Text = L"Cast Your Vote";
             // 
             // lblStatus
             // 
             this->lblStatus->AutoSize = true;
-            this->lblStatus->Location = System::Drawing::Point(260, 24);
-            this->lblStatus->Size = System::Drawing::Size(180, 20);
+            this->lblStatus->Location = System::Drawing::Point(520, 24);
+            this->lblStatus->Size = System::Drawing::Size(260, 20);
             this->lblStatus->Text = L"Status: Unknown";
             // 
             // lstCandidates
             // 
-            this->lstCandidates->FormattingEnabled = true;
             this->lstCandidates->Location = System::Drawing::Point(16, 64);
-            this->lstCandidates->Size = System::Drawing::Size(420, 220);
-            this->lstCandidates->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
+            this->lstCandidates->Size = System::Drawing::Size(860, 420);
+            this->lstCandidates->Font = (gcnew System::Drawing::Font(L"Segoe UI", 11, System::Drawing::FontStyle::Bold));
+            this->lstCandidates->HideSelection = false;
+            this->lstCandidates->MultiSelect = false;
+            this->lstCandidates->View = System::Windows::Forms::View::LargeIcon;
+            this->lstCandidates->UseCompatibleStateImageBehavior = false;
+            this->candidateImages->ColorDepth = System::Windows::Forms::ColorDepth::Depth32Bit;
+            this->candidateImages->ImageSize = System::Drawing::Size(64, 64);
+            this->lstCandidates->LargeImageList = this->candidateImages;
             // 
             // btnVote
             // 
-            this->btnVote->Location = System::Drawing::Point(16, 300);
-            this->btnVote->Size = System::Drawing::Size(120, 36);
+            this->btnVote->Location = System::Drawing::Point(16, 500);
+            this->btnVote->Size = System::Drawing::Size(180, 50);
             this->btnVote->Text = L"Vote";
             this->btnVote->Click += gcnew System::EventHandler(this, &VoterDashboard::btnVote_Click);
             // 
             // btnRefresh
             // 
-            this->btnRefresh->Location = System::Drawing::Point(152, 300);
-            this->btnRefresh->Size = System::Drawing::Size(120, 36);
+            this->btnRefresh->Location = System::Drawing::Point(212, 500);
+            this->btnRefresh->Size = System::Drawing::Size(180, 50);
             this->btnRefresh->Text = L"Refresh";
             this->btnRefresh->Click += gcnew System::EventHandler(this, &VoterDashboard::btnRefresh_Click);
             // 
             // btnOpenSlip
             // 
-            this->btnOpenSlip->Location = System::Drawing::Point(288, 300);
-            this->btnOpenSlip->Size = System::Drawing::Size(120, 36);
+            this->btnOpenSlip->Location = System::Drawing::Point(408, 500);
+            this->btnOpenSlip->Size = System::Drawing::Size(180, 50);
             this->btnOpenSlip->Text = L"My Receipt";
             this->btnOpenSlip->Click += gcnew System::EventHandler(this, &VoterDashboard::btnOpenSlip_Click);
             // 
             // btnShowResults
             // 
-            this->btnShowResults->Location = System::Drawing::Point(416, 300);
-            this->btnShowResults->Size = System::Drawing::Size(140, 36);
+            this->btnShowResults->Location = System::Drawing::Point(604, 500);
+            this->btnShowResults->Size = System::Drawing::Size(180, 50);
             this->btnShowResults->Text = L"Show Results";
             this->btnShowResults->Click += gcnew System::EventHandler(this, &VoterDashboard::btnShowResults_Click);
             // 
@@ -117,7 +179,7 @@ namespace Projectoop {
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-            this->ClientSize = System::Drawing::Size(570, 352);
+            this->ClientSize = System::Drawing::Size(900, 580);
             this->Controls->Add(this->btnShowResults);
             this->Controls->Add(this->btnOpenSlip);
             this->Controls->Add(this->btnRefresh);
@@ -176,9 +238,12 @@ namespace Projectoop {
 
         void LoadCandidates() {
             lstCandidates->Items->Clear();
+            candidateImages->Images->Clear();
+            String^ imageRoot = FindCandidatePicturesPath();
             std::ifstream in("Candidates.txt");
             if (!in.is_open()) {
-                lstCandidates->Items->Add("No candidates found.");
+                ListViewItem^ item = gcnew ListViewItem("No candidates found.");
+                lstCandidates->Items->Add(item);
                 return;
             }
             std::string line;
@@ -189,10 +254,76 @@ namespace Projectoop {
                 std::getline(ss, name, '|');
                 std::getline(ss, party, '|');
                 std::getline(ss, cid, '|');
-                // store as CID|Name|Party so we can parse later
-                std::string store = cid + "|" + name + "|" + party;
-                String^ disp = gcnew String(store.c_str());
-                lstCandidates->Items->Add(disp);
+                String^ candidateName = (gcnew String(name.c_str()))->Trim();
+                String^ candidateParty = (gcnew String(party.c_str()))->Trim();
+                String^ candidateId = (gcnew String(cid.c_str()))->Trim();
+
+                cli::array<String^>^ extensions = gcnew cli::array<String^>(6) { ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".jfif" };
+                String^ imagePath = nullptr;
+                if (imageRoot != nullptr) {
+                    for each (String^ ext in extensions) {
+                        String^ candidatePath = System::IO::Path::Combine(imageRoot, candidateName + ext);
+                        if (System::IO::File::Exists(candidatePath)) {
+                            imagePath = candidatePath;
+                            break;
+                        }
+                    }
+
+                    if (imagePath == nullptr) {
+                        cli::array<String^>^ files = System::IO::Directory::GetFiles(imageRoot, "*.*");
+                        for each (String^ filePath in files) {
+                            String^ ext = System::IO::Path::GetExtension(filePath)->ToLower();
+                            if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".bmp" && ext != ".gif" && ext != ".jfif") continue;
+                            String^ fileName = System::IO::Path::GetFileNameWithoutExtension(filePath);
+                            if (String::Compare(fileName, candidateName, true) == 0) {
+                                imagePath = filePath;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                int imageIndex = -1;
+                if (imagePath != nullptr && System::IO::File::Exists(imagePath)) {
+                    try {
+                        // Load image without locking the source file on disk.
+                        cli::array<System::Byte>^ bytes = System::IO::File::ReadAllBytes(imagePath);
+                        System::IO::MemoryStream^ ms = gcnew System::IO::MemoryStream(bytes);
+                        System::Drawing::Image^ img = nullptr;
+                        System::Drawing::Image^ cloned = nullptr;
+                        try {
+                            img = System::Drawing::Image::FromStream(ms);
+                            cloned = safe_cast<System::Drawing::Image^>(img->Clone());
+                        }
+                        catch (...) {
+                            // Some JPEGs can fail decoding via stream depending on encoding;
+                            // fall back to loading from file then cloning.
+                            try {
+                                img = System::Drawing::Image::FromFile(imagePath);
+                                cloned = safe_cast<System::Drawing::Image^>(img->Clone());
+                            }
+                            catch (...) {
+                                cloned = nullptr;
+                            }
+                        }
+
+                        if (img != nullptr) delete img;
+                        delete ms;
+
+                        if (cloned != nullptr) {
+                            candidateImages->Images->Add(cloned);
+                            imageIndex = candidateImages->Images->Count - 1;
+                        }
+                    }
+                    catch (...) {
+                        imageIndex = -1;
+                    }
+                }
+
+                String^ displayText = String::Format("{0} ({1})", candidateName, candidateParty);
+                ListViewItem^ item = gcnew ListViewItem(displayText, imageIndex);
+                item->Tag = candidateId;
+                lstCandidates->Items->Add(item);
             }
             in.close();
         }
@@ -206,15 +337,14 @@ namespace Projectoop {
                 MessageBox::Show("You have already voted.", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
                 return;
             }
-            if (lstCandidates->SelectedIndex < 0) {
+            if (lstCandidates->SelectedItems->Count == 0) {
                 MessageBox::Show("Please select a candidate to vote for.", "Choose Candidate", MessageBoxButtons::OK, MessageBoxIcon::Warning);
                 return;
             }
 
-            String^ sel = safe_cast<String^>(lstCandidates->SelectedItem);
-            cli::array<String^>^ parts = sel->Split('|');
-            if (parts->Length < 1) return;
-            String^ candidateId = parts[0];
+            ListViewItem^ selected = lstCandidates->SelectedItems[0];
+            String^ candidateId = safe_cast<String^>(selected->Tag);
+            String^ sel = selected->Text;
 
             // confirm
             if (MessageBox::Show(String::Format("Confirm vote for {0}?", sel), "Confirm Vote", MessageBoxButtons::YesNo, MessageBoxIcon::Question) != System::Windows::Forms::DialogResult::Yes) {

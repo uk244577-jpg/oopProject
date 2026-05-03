@@ -1,5 +1,6 @@
 #pragma once
 #pragma once
+#include "UITheme.h"
 #include <msclr/marshal_cppstd.h>
 #include <fstream>
 #include <string>
@@ -38,6 +39,7 @@ namespace Projectoop {
             isVoterMode = false;
             hasAlreadyVoted = false;
             InitializeComponent();
+            UITheme::ApplyTheme(this);
             btnCastVote->Visible = false;
         }
 
@@ -46,6 +48,7 @@ namespace Projectoop {
             isVoterMode = isVoter;
             hasAlreadyVoted = hasVoted;
             InitializeComponent();
+            UITheme::ApplyTheme(this);
             if (isVoterMode) {
                 btnCastVote->Visible = true;
                 if (hasAlreadyVoted) {
@@ -75,29 +78,29 @@ namespace Projectoop {
             this->colParty = (gcnew System::Windows::Forms::ColumnHeader());
             this->SuspendLayout();
 
-            this->ClientSize = System::Drawing::Size(400, 320);
+            this->ClientSize = System::Drawing::Size(800, 600);
             this->Text = L"Candidate Search";
             this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
             this->MaximizeBox = false;
 
-            this->txtSearchTerm->Location = System::Drawing::Point(15, 15);
-            this->txtSearchTerm->Size = System::Drawing::Size(200, 20);
+            this->txtSearchTerm->Location = System::Drawing::Point(20, 20);
+            this->txtSearchTerm->Size = System::Drawing::Size(400, 28);
 
-            this->btnSearch->Location = System::Drawing::Point(230, 13);
-            this->btnSearch->Size = System::Drawing::Size(100, 23);
+            this->btnSearch->Location = System::Drawing::Point(440, 18);
+            this->btnSearch->Size = System::Drawing::Size(120, 28);
             this->btnSearch->Text = L"Search";
             this->btnSearch->Click += gcnew System::EventHandler(this, &CandidateSearch::btnSearch_Click);
 
-            this->btnCastVote->Location = System::Drawing::Point(15, 280);
-            this->btnCastVote->Size = System::Drawing::Size(120, 25);
+            this->btnCastVote->Location = System::Drawing::Point(20, 520);
+            this->btnCastVote->Size = System::Drawing::Size(140, 36);
             this->btnCastVote->Text = L"Cast Vote";
             this->btnCastVote->Click += gcnew System::EventHandler(this, &CandidateSearch::btnCastVote_Click);
 
             this->listCandidates->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^ >(3) {
                 this->colID, this->colName, this->colParty
             });
-            this->listCandidates->Location = System::Drawing::Point(15, 50);
-            this->listCandidates->Size = System::Drawing::Size(360, 220);
+            this->listCandidates->Location = System::Drawing::Point(20, 60);
+            this->listCandidates->Size = System::Drawing::Size(760, 440);
             this->listCandidates->View = System::Windows::Forms::View::Details;
             this->listCandidates->FullRowSelect = true;
             this->listCandidates->GridLines = true;

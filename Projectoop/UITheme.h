@@ -17,9 +17,19 @@ namespace Projectoop {
                     Button^ btn = safe_cast<Button^>(c);
                     btn->FlatStyle = FlatStyle::Flat;
                     btn->FlatAppearance->BorderSize = 0;
-                    btn->BackColor = Color::FromArgb(0, 150, 136); // Attractive Teal
-                    btn->ForeColor = Color::White;
-                    btn->Font = gcnew Drawing::Font("Segoe UI", 10.0f, FontStyle::Bold);
+                    btn->UseVisualStyleBackColor = false;
+                    if (btn->BackColor == SystemColors::Control)
+                    {
+                        btn->BackColor = Color::Crimson; // Attractive Red
+                    }
+                    if (btn->ForeColor == SystemColors::ControlText)
+                    {
+                        btn->ForeColor = Color::White;
+                    }
+                    if (btn->Font->FontFamily->Name == "Microsoft Sans Serif")
+                    {
+                        btn->Font = gcnew Drawing::Font("Segoe UI", 12.0f, FontStyle::Bold);
+                    }
                     btn->Cursor = Cursors::Hand;
                 }
                 else
@@ -28,6 +38,10 @@ namespace Projectoop {
                     if (c->GetType() == Label::typeid || c->GetType() == CheckBox::typeid)
                     {
                         c->ForeColor = Color::White;
+                    }
+                    if (c->BackColor == SystemColors::Control || c->BackColor == SystemColors::ControlLight || c->BackColor == SystemColors::ControlDark)
+                    {
+                        c->BackColor = Color::FromArgb(20, 20, 20);
                     }
                     if (c->HasChildren)
                     {
@@ -40,7 +54,7 @@ namespace Projectoop {
     public:
         static void ApplyTheme(Form^ form)
         {
-            form->BackColor = Color::FromArgb(43, 48, 53); // Attractive deep dark slate base
+            form->BackColor = Color::FromArgb(20, 20, 20); // Deep black background
             form->ForeColor = Color::White;
             ApplyColorToControls(form);
         }

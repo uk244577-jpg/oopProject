@@ -47,5 +47,25 @@
     <ClInclude Include="AdminDashboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ViewResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VoterDashboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="candidate pictures\faizan.jpeg">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="candidate pictures\hunain.jpeg">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="candidate pictures\khanan.jpeg">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="candidate pictures\usman.jpeg">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

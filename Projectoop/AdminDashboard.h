@@ -2,6 +2,7 @@
 #include "Backend.h"
 #include "ViewResult.h"
 #include "VotingHistory.h"
+#include "UITheme.h"
 #include <msclr\marshal_cppstd.h>
 #include <fstream>
 #include <string>
@@ -22,6 +23,7 @@ namespace Projectoop {
         AdminDashboard(void)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
         }
 
         System::Void btnSearchCandidates_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -81,6 +83,12 @@ namespace Projectoop {
         System::Windows::Forms::TextBox^ txtCandIdToRemove;
         System::Windows::Forms::Button^ btnRemoveCandidate;
         System::Windows::Forms::Label^ lblRemoveId;
+        System::Windows::Forms::GroupBox^ groupRenameCandidate;
+        System::Windows::Forms::TextBox^ txtRenameCandidateId;
+        System::Windows::Forms::TextBox^ txtRenameCandidateName;
+        System::Windows::Forms::Button^ btnRenameCandidate;
+        System::Windows::Forms::Label^ lblRenameId;
+        System::Windows::Forms::Label^ lblRenameName;
         System::Windows::Forms::GroupBox^ groupVoter;
         System::Windows::Forms::TextBox^ txtVoterUsername;
         System::Windows::Forms::Button^ btnDeleteVoter;
@@ -114,6 +122,12 @@ namespace Projectoop {
             this->lblRemoveId = (gcnew System::Windows::Forms::Label());
             this->txtCandIdToRemove = (gcnew System::Windows::Forms::TextBox());
             this->btnRemoveCandidate = (gcnew System::Windows::Forms::Button());
+            this->groupRenameCandidate = (gcnew System::Windows::Forms::GroupBox());
+            this->lblRenameId = (gcnew System::Windows::Forms::Label());
+            this->txtRenameCandidateId = (gcnew System::Windows::Forms::TextBox());
+            this->lblRenameName = (gcnew System::Windows::Forms::Label());
+            this->txtRenameCandidateName = (gcnew System::Windows::Forms::TextBox());
+            this->btnRenameCandidate = (gcnew System::Windows::Forms::Button());
             this->groupVoter = (gcnew System::Windows::Forms::GroupBox());
             this->lblVoterUser = (gcnew System::Windows::Forms::Label());
             this->txtVoterUsername = (gcnew System::Windows::Forms::TextBox());
@@ -134,7 +148,7 @@ namespace Projectoop {
             // 
             // Form setup
             // 
-            this->ClientSize = System::Drawing::Size(600, 500);
+            this->ClientSize = System::Drawing::Size(1200, 860);
             this->Text = L"Admin Dashboard";
             this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
             this->MaximizeBox = false;
@@ -144,14 +158,15 @@ namespace Projectoop {
             // listCandidates
             this->listCandidates->FormattingEnabled = true;
             this->listCandidates->Location = System::Drawing::Point(12, 12);
-            this->listCandidates->Size = System::Drawing::Size(250, 400);
+            this->listCandidates->Size = System::Drawing::Size(450, 680);
+            this->listCandidates->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
             this->listCandidates->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
             this->listCandidates->ForeColor = System::Drawing::Color::White;
             this->listCandidates->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 
             // btnRefreshCandidates
-            this->btnRefreshCandidates->Location = System::Drawing::Point(12, 420);
-            this->btnRefreshCandidates->Size = System::Drawing::Size(250, 30);
+            this->btnRefreshCandidates->Location = System::Drawing::Point(12, 700);
+            this->btnRefreshCandidates->Size = System::Drawing::Size(450, 36);
             this->btnRefreshCandidates->Text = L"Refresh Candidates";
             this->btnRefreshCandidates->Click += gcnew System::EventHandler(this, &AdminDashboard::btnRefreshCandidates_Click);
             // Theme: primary green for positive actions
@@ -164,8 +179,8 @@ namespace Projectoop {
             this->btnRefreshCandidates->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
 
             // groupAddCandidate
-            this->groupAddCandidate->Location = System::Drawing::Point(280, 12);
-            this->groupAddCandidate->Size = System::Drawing::Size(300, 100);
+            this->groupAddCandidate->Location = System::Drawing::Point(480, 12);
+            this->groupAddCandidate->Size = System::Drawing::Size(700, 140);
             this->groupAddCandidate->Text = L"Add Candidate";
             this->groupAddCandidate->ForeColor = System::Drawing::Color::White;
             this->groupAddCandidate->BackColor = System::Drawing::Color::Black;
@@ -175,7 +190,7 @@ namespace Projectoop {
             this->lblCandName->Text = L"Name:";
             this->lblCandName->ForeColor = System::Drawing::Color::White;
             this->txtCandName->Location = System::Drawing::Point(60, 22);
-            this->txtCandName->Size = System::Drawing::Size(130, 20);
+            this->txtCandName->Size = System::Drawing::Size(300, 24);
             this->txtCandName->BackColor = System::Drawing::Color::White;
             this->txtCandName->ForeColor = System::Drawing::Color::Black;
 
@@ -184,12 +199,12 @@ namespace Projectoop {
             this->lblCandParty->Text = L"Party:";
             this->lblCandParty->ForeColor = System::Drawing::Color::White;
             this->txtCandParty->Location = System::Drawing::Point(60, 52);
-            this->txtCandParty->Size = System::Drawing::Size(130, 20);
+            this->txtCandParty->Size = System::Drawing::Size(300, 24);
             this->txtCandParty->BackColor = System::Drawing::Color::White;
             this->txtCandParty->ForeColor = System::Drawing::Color::Black;
 
-            this->btnAddCandidate->Location = System::Drawing::Point(200, 22);
-            this->btnAddCandidate->Size = System::Drawing::Size(80, 50);
+            this->btnAddCandidate->Location = System::Drawing::Point(520, 22);
+            this->btnAddCandidate->Size = System::Drawing::Size(120, 40);
             this->btnAddCandidate->Text = L"Add";
             this->btnAddCandidate->Click += gcnew System::EventHandler(this, &AdminDashboard::btnAddCandidate_Click);
             this->btnAddCandidate->BackColor = primaryGreen;
@@ -204,8 +219,8 @@ namespace Projectoop {
             this->groupAddCandidate->Controls->Add(this->btnAddCandidate);
 
             // groupRemoveCandidate
-            this->groupRemoveCandidate->Location = System::Drawing::Point(280, 120);
-            this->groupRemoveCandidate->Size = System::Drawing::Size(300, 60);
+            this->groupRemoveCandidate->Location = System::Drawing::Point(480, 170);
+            this->groupRemoveCandidate->Size = System::Drawing::Size(700, 70);
             this->groupRemoveCandidate->Text = L"Remove Candidate";
             this->groupRemoveCandidate->ForeColor = System::Drawing::Color::White;
             this->groupRemoveCandidate->BackColor = System::Drawing::Color::Black;
@@ -233,8 +248,48 @@ namespace Projectoop {
             this->groupRemoveCandidate->Controls->Add(this->btnRemoveCandidate);
 
             // groupVoter
-            this->groupVoter->Location = System::Drawing::Point(280, 190);
-            this->groupVoter->Size = System::Drawing::Size(300, 60);
+            this->groupRenameCandidate->Location = System::Drawing::Point(480, 250);
+            this->groupRenameCandidate->Size = System::Drawing::Size(700, 80);
+            this->groupRenameCandidate->Text = L"Rename Candidate";
+            this->groupRenameCandidate->ForeColor = System::Drawing::Color::White;
+            this->groupRenameCandidate->BackColor = System::Drawing::Color::Black;
+
+            this->lblRenameId->Location = System::Drawing::Point(10, 30);
+            this->lblRenameId->Size = System::Drawing::Size(50, 20);
+            this->lblRenameId->Text = L"ID:";
+            this->lblRenameId->ForeColor = System::Drawing::Color::White;
+            this->txtRenameCandidateId->Location = System::Drawing::Point(60, 27);
+            this->txtRenameCandidateId->Size = System::Drawing::Size(130, 20);
+            this->txtRenameCandidateId->BackColor = System::Drawing::Color::White;
+            this->txtRenameCandidateId->ForeColor = System::Drawing::Color::Black;
+
+            this->lblRenameName->Location = System::Drawing::Point(210, 30);
+            this->lblRenameName->Size = System::Drawing::Size(60, 20);
+            this->lblRenameName->Text = L"Name:";
+            this->lblRenameName->ForeColor = System::Drawing::Color::White;
+            this->txtRenameCandidateName->Location = System::Drawing::Point(270, 27);
+            this->txtRenameCandidateName->Size = System::Drawing::Size(240, 20);
+            this->txtRenameCandidateName->BackColor = System::Drawing::Color::White;
+            this->txtRenameCandidateName->ForeColor = System::Drawing::Color::Black;
+
+            this->btnRenameCandidate->Location = System::Drawing::Point(530, 22);
+            this->btnRenameCandidate->Size = System::Drawing::Size(150, 30);
+            this->btnRenameCandidate->Text = L"Update Name";
+            this->btnRenameCandidate->Click += gcnew System::EventHandler(this, &AdminDashboard::btnRenameCandidate_Click);
+            this->btnRenameCandidate->BackColor = primaryGreen;
+            this->btnRenameCandidate->ForeColor = System::Drawing::Color::White;
+            this->btnRenameCandidate->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnRenameCandidate->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
+
+            this->groupRenameCandidate->Controls->Add(this->lblRenameId);
+            this->groupRenameCandidate->Controls->Add(this->txtRenameCandidateId);
+            this->groupRenameCandidate->Controls->Add(this->lblRenameName);
+            this->groupRenameCandidate->Controls->Add(this->txtRenameCandidateName);
+            this->groupRenameCandidate->Controls->Add(this->btnRenameCandidate);
+
+            // groupVoter
+            this->groupVoter->Location = System::Drawing::Point(480, 340);
+            this->groupVoter->Size = System::Drawing::Size(700, 70);
             this->groupVoter->Text = L"Delete Voter";
             this->groupVoter->ForeColor = System::Drawing::Color::White;
             this->groupVoter->BackColor = System::Drawing::Color::Black;
@@ -262,14 +317,14 @@ namespace Projectoop {
             this->groupVoter->Controls->Add(this->btnDeleteVoter);
 
             // groupSystem
-            this->groupSystem->Location = System::Drawing::Point(280, 260);
-            this->groupSystem->Size = System::Drawing::Size(300, 80); // increased height
+            this->groupSystem->Location = System::Drawing::Point(480, 420);
+            this->groupSystem->Size = System::Drawing::Size(700, 100);
             this->groupSystem->Text = L"System Operations";
             this->groupSystem->ForeColor = System::Drawing::Color::White;
             this->groupSystem->BackColor = System::Drawing::Color::Black;
 
-            this->btnViewResults->Location = System::Drawing::Point(10, 20);
-            this->btnViewResults->Size = System::Drawing::Size(135, 23);
+            this->btnViewResults->Location = System::Drawing::Point(10, 25);
+            this->btnViewResults->Size = System::Drawing::Size(160, 30);
             this->btnViewResults->Text = L"View Election Results";
             this->btnViewResults->Click += gcnew System::EventHandler(this, &AdminDashboard::btnViewResults_Click);
             this->btnViewResults->BackColor = primaryGreen;
@@ -277,8 +332,8 @@ namespace Projectoop {
             this->btnViewResults->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
             this->btnViewResults->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
-            this->btnResetElection->Location = System::Drawing::Point(155, 20);
-            this->btnResetElection->Size = System::Drawing::Size(135, 23);
+            this->btnResetElection->Location = System::Drawing::Point(180, 25);
+            this->btnResetElection->Size = System::Drawing::Size(180, 30);
             this->btnResetElection->Text = L"Reset Election Data";
             this->btnResetElection->Click += gcnew System::EventHandler(this, &AdminDashboard::btnResetElection_Click);
             this->btnResetElection->BackColor = dangerRed;
@@ -286,15 +341,23 @@ namespace Projectoop {
             this->btnResetElection->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
             this->btnResetElection->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
-            this->btnVotingHistory->Location = System::Drawing::Point(10, 50);
-            this->btnVotingHistory->Size = System::Drawing::Size(135, 23);
+            this->btnVotingHistory->Location = System::Drawing::Point(370, 25);
+            this->btnVotingHistory->Size = System::Drawing::Size(150, 30);
             this->btnVotingHistory->Text = L"Voting History";
             this->btnVotingHistory->Click += gcnew System::EventHandler(this, &AdminDashboard::btnVotingHistory_Click);
+            this->btnVotingHistory->BackColor = primaryGreen;
+            this->btnVotingHistory->ForeColor = System::Drawing::Color::White;
+            this->btnVotingHistory->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnVotingHistory->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
-            this->btnSearchCandidates->Location = System::Drawing::Point(155, 50);
-            this->btnSearchCandidates->Size = System::Drawing::Size(135, 23);
+            this->btnSearchCandidates->Location = System::Drawing::Point(530, 25);
+            this->btnSearchCandidates->Size = System::Drawing::Size(150, 30);
             this->btnSearchCandidates->Text = L"Search Candidates";
             this->btnSearchCandidates->Click += gcnew System::EventHandler(this, &AdminDashboard::btnSearchCandidates_Click);
+            this->btnSearchCandidates->BackColor = primaryGreen;
+            this->btnSearchCandidates->ForeColor = System::Drawing::Color::White;
+            this->btnSearchCandidates->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnSearchCandidates->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold));
 
             this->groupSystem->Controls->Add(this->btnViewResults);
             this->groupSystem->Controls->Add(this->btnResetElection);
@@ -302,8 +365,8 @@ namespace Projectoop {
             this->groupSystem->Controls->Add(this->btnSearchCandidates);
 
             // groupAdmin
-            this->groupAdmin->Location = System::Drawing::Point(280, 350);
-            this->groupAdmin->Size = System::Drawing::Size(300, 100);
+            this->groupAdmin->Location = System::Drawing::Point(480, 530);
+            this->groupAdmin->Size = System::Drawing::Size(700, 120);
             this->groupAdmin->Text = L"Register New Admin";
             this->groupAdmin->ForeColor = System::Drawing::Color::White;
             this->groupAdmin->BackColor = System::Drawing::Color::Black;
@@ -342,8 +405,8 @@ namespace Projectoop {
             this->groupAdmin->Controls->Add(this->btnRegAdmin);
 
             // btnLogout
-            this->btnLogout->Location = System::Drawing::Point(280, 460);
-            this->btnLogout->Size = System::Drawing::Size(300, 30);
+            this->btnLogout->Location = System::Drawing::Point(480, 670);
+            this->btnLogout->Size = System::Drawing::Size(700, 40);
             this->btnLogout->Text = L"Logout";
             this->btnLogout->Click += gcnew System::EventHandler(this, &AdminDashboard::btnLogout_Click);
             this->btnLogout->BackColor = primaryGreen;
@@ -355,6 +418,7 @@ namespace Projectoop {
             this->Controls->Add(this->btnRefreshCandidates);
             this->Controls->Add(this->groupAddCandidate);
             this->Controls->Add(this->groupRemoveCandidate);
+            this->Controls->Add(this->groupRenameCandidate);
             this->Controls->Add(this->groupVoter);
             this->Controls->Add(this->groupSystem);
             this->Controls->Add(this->groupAdmin);
@@ -413,6 +477,28 @@ namespace Projectoop {
                 txtCandName->Clear();
                 txtCandParty->Clear();
                 RefreshCandidates();
+            }
+        }
+
+        System::Void btnRenameCandidate_Click(System::Object^ sender, System::EventArgs^ e) {
+            if (String::IsNullOrWhiteSpace(txtRenameCandidateId->Text) || String::IsNullOrWhiteSpace(txtRenameCandidateName->Text)) {
+                MessageBox::Show("Candidate ID and new name are required.");
+                return;
+            }
+
+            msclr::interop::marshal_context context;
+            std::string cid = context.marshal_as<std::string>(txtRenameCandidateId->Text);
+            std::string newName = context.marshal_as<std::string>(txtRenameCandidateName->Text);
+
+            Filehandler fh;
+            if (fh.updateCandidateName(cid, newName)) {
+                MessageBox::Show("Candidate name updated successfully.");
+                txtRenameCandidateId->Clear();
+                txtRenameCandidateName->Clear();
+                RefreshCandidates();
+            }
+            else {
+                MessageBox::Show("Candidate ID does not exist.");
             }
         }
 

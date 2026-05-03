@@ -1,5 +1,6 @@
 #pragma once
 #pragma once
+#include "UITheme.h"
 #include <msclr/marshal_cppstd.h>
 #include <fstream>
 #include <string>
@@ -28,6 +29,7 @@ namespace Projectoop {
         VotingHistory(void)
         {
             InitializeComponent();
+            UITheme::ApplyTheme(this);
         }
 
     protected:

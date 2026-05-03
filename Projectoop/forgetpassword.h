@@ -1,5 +1,6 @@
 #pragma once
 #include "Backend.h"
+#include "UITheme.h"
 #include <msclr\marshal_cppstd.h>
 
 namespace Projectoop {
@@ -18,6 +19,7 @@ namespace Projectoop {
 		forgetpassword(void)
 		{
 			InitializeComponent();
+           UITheme::ApplyTheme(this);
 		}
 
 	protected:
