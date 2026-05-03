@@ -1,58 +1,86 @@
 ﻿  MyForm.cpp
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(578,12): warning C4566: character represented by universal-character-name '\u2713' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(598,12): warning C4566: character represented by universal-character-name '\u2713' cannot be represented in the current code page (1252)
   (compiling source file 'MyForm.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(645,11): warning C4566: character represented by universal-character-name '\u2554' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(665,11): warning C4566: character represented by universal-character-name '\u2554' cannot be represented in the current code page (1252)
   (compiling source file 'MyForm.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(645,11): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(665,11): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
   (compiling source file 'MyForm.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(645,11): warning C4566: character represented by universal-character-name '\u2557' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(665,11): warning C4566: character represented by universal-character-name '\u2557' cannot be represented in the current code page (1252)
   (compiling source file 'MyForm.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(646,11): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(666,11): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
   (compiling source file 'MyForm.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(647,11): warning C4566: character represented by universal-character-name '\u255A' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(667,11): warning C4566: character represented by universal-character-name '\u255A' cannot be represented in the current code page (1252)
   (compiling source file 'MyForm.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(647,11): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(667,11): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
   (compiling source file 'MyForm.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(647,11): warning C4566: character represented by universal-character-name '\u255D' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(667,11): warning C4566: character represented by universal-character-name '\u255D' cannot be represented in the current code page (1252)
   (compiling source file 'MyForm.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(859,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(879,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'MyForm.cpp')
   
   RoleSelector.cpp
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(578,12): warning C4566: character represented by universal-character-name '\u2713' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(598,12): warning C4566: character represented by universal-character-name '\u2713' cannot be represented in the current code page (1252)
   (compiling source file 'RoleSelector.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(645,11): warning C4566: character represented by universal-character-name '\u2554' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(665,11): warning C4566: character represented by universal-character-name '\u2554' cannot be represented in the current code page (1252)
   (compiling source file 'RoleSelector.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(645,11): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(665,11): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
   (compiling source file 'RoleSelector.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(645,11): warning C4566: character represented by universal-character-name '\u2557' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(665,11): warning C4566: character represented by universal-character-name '\u2557' cannot be represented in the current code page (1252)
   (compiling source file 'RoleSelector.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(646,11): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(666,11): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
   (compiling source file 'RoleSelector.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(647,11): warning C4566: character represented by universal-character-name '\u255A' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(667,11): warning C4566: character represented by universal-character-name '\u255A' cannot be represented in the current code page (1252)
   (compiling source file 'RoleSelector.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(647,11): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(667,11): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
   (compiling source file 'RoleSelector.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(647,11): warning C4566: character represented by universal-character-name '\u255D' cannot be represented in the current code page (1252)
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(667,11): warning C4566: character represented by universal-character-name '\u255D' cannot be represented in the current code page (1252)
   (compiling source file 'RoleSelector.cpp')
   
-C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(859,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(879,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'RoleSelector.cpp')
+  
+  forgetpassword.cpp
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(598,12): warning C4566: character represented by universal-character-name '\u2713' cannot be represented in the current code page (1252)
+  (compiling source file 'forgetpassword.cpp')
+  
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(665,11): warning C4566: character represented by universal-character-name '\u2554' cannot be represented in the current code page (1252)
+  (compiling source file 'forgetpassword.cpp')
+  
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(665,11): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
+  (compiling source file 'forgetpassword.cpp')
+  
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(665,11): warning C4566: character represented by universal-character-name '\u2557' cannot be represented in the current code page (1252)
+  (compiling source file 'forgetpassword.cpp')
+  
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(666,11): warning C4566: character represented by universal-character-name '\u2551' cannot be represented in the current code page (1252)
+  (compiling source file 'forgetpassword.cpp')
+  
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(667,11): warning C4566: character represented by universal-character-name '\u255A' cannot be represented in the current code page (1252)
+  (compiling source file 'forgetpassword.cpp')
+  
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(667,11): warning C4566: character represented by universal-character-name '\u2550' cannot be represented in the current code page (1252)
+  (compiling source file 'forgetpassword.cpp')
+  
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(667,11): warning C4566: character represented by universal-character-name '\u255D' cannot be represented in the current code page (1252)
+  (compiling source file 'forgetpassword.cpp')
+  
+C:\Users\Usman\source\repos\Projectoop\oopProject\Projectoop\Backend.h(879,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'forgetpassword.cpp')
   
   Generating Code...
   forgetpassword.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link

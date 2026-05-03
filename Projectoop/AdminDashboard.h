@@ -610,7 +610,7 @@ namespace Projectoop {
             if (res == System::Windows::Forms::DialogResult::Yes) {
                 Filehandler fh;
                 if (fh.resetElection()) {
-                    MessageBox::Show("Election has been reset.");
+                    MessageBox::Show("Election has been reset. Default candidates have been restored.");
                     RefreshCandidates();
                 }
             }

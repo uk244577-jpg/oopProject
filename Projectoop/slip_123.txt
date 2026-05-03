@@ -1,5 +1,5 @@
 Voter ID: 123
-Voter Name: usman durrani
-Voted For (Candidate ID): C1
-Voted At: 2026-05-02 15:37:49
+Voter Name: ahmed
+Voted For (Candidate ID): C4
+Voted At: 2026-05-03 21:54:59
 Thank you for voting.

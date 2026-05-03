@@ -35,6 +35,66 @@ namespace Projectoop {
         System::Windows::Forms::Button^ btnShowResults;
         System::ComponentModel::Container^ components;
 
+        bool CandidatesFileHasEntries(String^ path) {
+            try {
+                if (String::IsNullOrWhiteSpace(path) || !System::IO::File::Exists(path)) return false;
+                cli::array<String^>^ lines = System::IO::File::ReadAllLines(path);
+                for each (String^ l in lines) {
+                    if (!String::IsNullOrWhiteSpace(l)) return true;
+                }
+            }
+            catch (...) {
+            }
+            return false;
+        }
+
+        String^ FindCandidatesFilePath() {
+            // Candidates.txt is referenced by relative path in the app. Depending on how the program is launched,
+            // the current working directory can differ (bin\Debug, repo root, etc.).
+            // This searches common locations and prefers copying the file next to the executable.
+            String^ baseDir = System::AppDomain::CurrentDomain->BaseDirectory;
+            String^ exePath = System::IO::Path::Combine(baseDir, "Candidates.txt");
+            // Only accept the exe-local file if it actually contains data; an empty file here would cause a blank dashboard.
+            if (CandidatesFileHasEntries(exePath)) {
+                return exePath;
+            }
+
+            cli::array<String^>^ startDirs = gcnew cli::array<String^>(2) {
+                System::Environment::CurrentDirectory,
+                baseDir
+            };
+
+            for each (String^ start in startDirs) {
+                String^ current = start;
+                for (int i = 0; i < 10; i++) {
+                    cli::array<String^>^ probe = gcnew cli::array<String^>(2) {
+                        System::IO::Path::Combine(current, "Candidates.txt"),
+                        System::IO::Path::Combine(current, "Projectoop\\Candidates.txt")
+                    };
+
+                    for each (String^ p in probe) {
+                        if (System::IO::File::Exists(p)) {
+                            try {
+                                // Keep a usable copy next to the exe. If it exists but is empty, overwrite it.
+                                if (!System::IO::File::Exists(exePath) || !CandidatesFileHasEntries(exePath)) {
+                                    System::IO::File::Copy(p, exePath, true);
+                                    if (CandidatesFileHasEntries(exePath)) return exePath;
+                                }
+                            }
+                            catch (...) {
+                                // ignore copy failures
+                            }
+                            return p;
+                        }
+                    }
+
+                    current = System::IO::Path::GetFullPath(System::IO::Path::Combine(current, ".."));
+                }
+            }
+
+            return nullptr;
+        }
+
         String^ FindCandidatePicturesPath() {
             // Prefer a folder next to the executable (easiest for deployment),
             // but also support the repo layout where images live under `Projectoop\candidate pictures`.
@@ -240,12 +300,23 @@ namespace Projectoop {
             lstCandidates->Items->Clear();
             candidateImages->Images->Clear();
             String^ imageRoot = FindCandidatePicturesPath();
-            std::ifstream in("Candidates.txt");
+            String^ candidatesPathManaged = FindCandidatesFilePath();
+            if (candidatesPathManaged == nullptr) {
+                ListViewItem^ item = gcnew ListViewItem("Candidates.txt not found.");
+                lstCandidates->Items->Add(item);
+                return;
+            }
+
+            msclr::interop::marshal_context ctx;
+            std::string candidatesPath = ctx.marshal_as<std::string>(candidatesPathManaged);
+            std::ifstream in(candidatesPath);
             if (!in.is_open()) {
                 ListViewItem^ item = gcnew ListViewItem("No candidates found.");
                 lstCandidates->Items->Add(item);
                 return;
             }
+
+            int addedCount = 0;
             std::string line;
             while (std::getline(in, line)) {
                 if (line.empty()) continue;
@@ -257,6 +328,10 @@ namespace Projectoop {
                 String^ candidateName = (gcnew String(name.c_str()))->Trim();
                 String^ candidateParty = (gcnew String(party.c_str()))->Trim();
                 String^ candidateId = (gcnew String(cid.c_str()))->Trim();
+
+                if (String::IsNullOrWhiteSpace(candidateName) && String::IsNullOrWhiteSpace(candidateParty) && String::IsNullOrWhiteSpace(candidateId)) {
+                    continue;
+                }
 
                 cli::array<String^>^ extensions = gcnew cli::array<String^>(6) { ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".jfif" };
                 String^ imagePath = nullptr;
@@ -324,8 +399,14 @@ namespace Projectoop {
                 ListViewItem^ item = gcnew ListViewItem(displayText, imageIndex);
                 item->Tag = candidateId;
                 lstCandidates->Items->Add(item);
+                addedCount++;
             }
             in.close();
+
+            if (addedCount == 0) {
+                ListViewItem^ item = gcnew ListViewItem("No candidates found.");
+                lstCandidates->Items->Add(item);
+            }
         }
 
         System::Void btnRefresh_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -402,7 +483,13 @@ namespace Projectoop {
                 std::map<std::string, int> voteCount;
                 std::map<std::string, std::string> candidateNames;
 
-                std::ifstream cfile("Candidates.txt");
+                String^ candidatesPathManaged = FindCandidatesFilePath();
+                std::ifstream cfile;
+                if (candidatesPathManaged != nullptr) {
+                    msclr::interop::marshal_context ctx;
+                    std::string candidatesPath = ctx.marshal_as<std::string>(candidatesPathManaged);
+                    cfile.open(candidatesPath);
+                }
                 if (cfile.is_open()) {
                     std::string line;
                     while (std::getline(cfile, line)) {

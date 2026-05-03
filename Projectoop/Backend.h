@@ -176,8 +176,9 @@ public:
 			return false;
 		}
 
-		string allines, line;
+       string allines, line;
 		string voterName = "";
+		bool found = false;
 		while (getline(infile, line)) {
 			string f_name, f_pass, f_id, f_votedStr;
 			stringstream ss(line);
@@ -186,6 +187,7 @@ public:
 			getline(ss, f_id, '|');
 			getline(ss, f_votedStr, '|');
 			if (f_id == voterID) {
+             found = true;
 				voterName = f_name;
 				allines += f_name + "|" + f_pass + "|" + f_id + "|1\n";
 			}
@@ -194,6 +196,11 @@ public:
 			}
 		}
 		infile.close();
+
+		if (!found) {
+			// Voter ID not found: do not record a vote or generate a slip.
+			return false;
+		}
 
 		ofstream outFile(voterFile, ios::trunc);
 		if (!outFile.is_open()) return false;
@@ -320,12 +327,25 @@ public:
 		outVoter.close();
 
 		// Step 2: clear the candidates file entirely
-		ofstream outCand("Candidates.txt", ios::trunc);
-		if (outCand.is_open()) outCand.close();
+     {
+			ofstream outCand("Candidates.txt", ios::trunc);
+			if (!outCand.is_open()) return false;
+			// Restore the default candidate set after reset.
+			// This matches the shipped images in `candidate pictures`.
+			outCand << "Hunain|Independent|C1\n";
+			outCand << "Faizan|Independent|C2\n";
+			outCand << "Usman|Independent|C3\n";
+			outCand << "Khanan|Independent|C4\n";
+			outCand.close();
+		}
 
 		// Step 3: clear the Votes audit file
-		ofstream outVotes("Votes.txt", ios::trunc);
-		if (outVotes.is_open()) outVotes.close();
+     {
+			ofstream outVotesLower("votes.txt", ios::trunc);
+			if (outVotesLower.is_open()) outVotesLower.close();
+			ofstream outVotesUpper("Votes.txt", ios::trunc);
+			if (outVotesUpper.is_open()) outVotesUpper.close();
+		}
 
 		return true;
 	}

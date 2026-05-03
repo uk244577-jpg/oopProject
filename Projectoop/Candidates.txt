@@ -1,4 +1,4 @@
-hunain |pti|C1
-usman|ttp|C2
-khanan|asmin munir|C3
+hunain|PTI|C1
+usman|TTP|C2
+khanan|(Asim Munir)|C3
 faizan|lota|C4
