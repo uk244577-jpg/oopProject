@@ -6,6 +6,9 @@
 #include <string>
 #include <sstream>
 #include <ctime>
+#include <map>
+#include <vector>
+#include <algorithm>
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -27,6 +30,7 @@ namespace Projectoop {
         System::Windows::Forms::Label^ lblStatus;
         System::Windows::Forms::Button^ btnRefresh;
         System::Windows::Forms::Button^ btnOpenSlip;
+        System::Windows::Forms::Button^ btnShowResults;
         System::ComponentModel::Container^ components;
 
     public:
@@ -56,6 +60,7 @@ namespace Projectoop {
             this->lblStatus = (gcnew System::Windows::Forms::Label());
             this->btnRefresh = (gcnew System::Windows::Forms::Button());
             this->btnOpenSlip = (gcnew System::Windows::Forms::Button());
+            this->btnShowResults = (gcnew System::Windows::Forms::Button());
             this->SuspendLayout();
             // 
             // lblTitle
@@ -97,15 +102,23 @@ namespace Projectoop {
             // btnOpenSlip
             // 
             this->btnOpenSlip->Location = System::Drawing::Point(288, 300);
-            this->btnOpenSlip->Size = System::Drawing::Size(148, 36);
-            this->btnOpenSlip->Text = L"Open My Receipt";
+            this->btnOpenSlip->Size = System::Drawing::Size(120, 36);
+            this->btnOpenSlip->Text = L"My Receipt";
             this->btnOpenSlip->Click += gcnew System::EventHandler(this, &VoterDashboard::btnOpenSlip_Click);
+            // 
+            // btnShowResults
+            // 
+            this->btnShowResults->Location = System::Drawing::Point(416, 300);
+            this->btnShowResults->Size = System::Drawing::Size(140, 36);
+            this->btnShowResults->Text = L"Show Results";
+            this->btnShowResults->Click += gcnew System::EventHandler(this, &VoterDashboard::btnShowResults_Click);
             // 
             // VoterDashboard
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-            this->ClientSize = System::Drawing::Size(460, 352);
+            this->ClientSize = System::Drawing::Size(570, 352);
+            this->Controls->Add(this->btnShowResults);
             this->Controls->Add(this->btnOpenSlip);
             this->Controls->Add(this->btnRefresh);
             this->Controls->Add(this->lblStatus);
@@ -154,6 +167,11 @@ namespace Projectoop {
             this->btnOpenSlip->ForeColor = System::Drawing::Color::White;
             this->btnOpenSlip->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
             this->btnOpenSlip->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
+
+            this->btnShowResults->BackColor = System::Drawing::Color::FromArgb(52, 152, 219);
+            this->btnShowResults->ForeColor = System::Drawing::Color::White;
+            this->btnShowResults->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->btnShowResults->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10, System::Drawing::FontStyle::Bold));
         }
 
         void LoadCandidates() {
@@ -233,6 +251,111 @@ namespace Projectoop {
             }
             catch (...) {
                 MessageBox::Show("Receipt not found.", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
+            }
+        }
+
+        System::Void btnShowResults_Click(System::Object^ sender, System::EventArgs^ e) {
+            try {
+                // Count total registered voters
+                int totalVoters = 0;
+                std::ifstream vfile("voter.txt");
+                if (vfile.is_open()) {
+                    std::string line;
+                    while (std::getline(vfile, line)) {
+                        if (!line.empty()) totalVoters++;
+                    }
+                    vfile.close();
+                }
+
+                // Count votes cast
+                int votesCast = 0;
+                std::map<std::string, int> voteCount;
+                std::map<std::string, std::string> candidateNames;
+
+                std::ifstream cfile("Candidates.txt");
+                if (cfile.is_open()) {
+                    std::string line;
+                    while (std::getline(cfile, line)) {
+                        if (line.empty()) continue;
+                        std::string name, party, cid;
+                        std::stringstream ss(line);
+                        std::getline(ss, name, '|');
+                        std::getline(ss, party, '|');
+                        std::getline(ss, cid, '|');
+                        candidateNames[cid] = name + " (" + party + ")";
+                    }
+                    cfile.close();
+                }
+
+                std::ifstream votesfile("votes.txt");
+                if (votesfile.is_open()) {
+                    std::string line;
+                    while (std::getline(votesfile, line)) {
+                        if (line.empty()) continue;
+                        std::string vid, cid, ts;
+                        std::stringstream ss(line);
+                        std::getline(ss, vid, '|');
+                        std::getline(ss, cid, '|');
+                        std::getline(ss, ts, '|');
+                        if (!cid.empty()) {
+                            voteCount[cid]++;
+                            votesCast++;
+                        }
+                    }
+                    votesfile.close();
+                }
+
+                // Create results message
+                String^ resultsText = "";
+                resultsText += "========== CURRENT VOTING RESULTS ==========\n\n";
+                resultsText += String::Format("Total Registered Voters: {0}\n", totalVoters);
+                resultsText += String::Format("Votes Cast So Far: {0}\n", votesCast);
+                int yetToVote = totalVoters - votesCast;
+                resultsText += String::Format("Yet to Vote: {0}\n", yetToVote);
+                if (totalVoters > 0) {
+                    int percent = (votesCast * 100) / totalVoters;
+                    resultsText += String::Format("Turnout: {0}%\n", percent);
+                }
+                resultsText += "\n========== CANDIDATE VOTE COUNT ==========\n\n";
+
+                // Sort candidates by vote count (descending)
+                std::vector<std::pair<std::string, int>> sortedVotes;
+                for (auto& p : candidateNames) {
+                    int count = 0;
+                    auto it = voteCount.find(p.first);
+                    if (it != voteCount.end()) count = it->second;
+                    sortedVotes.push_back({p.second, count});
+                }
+                // Manual bubble sort for descending order
+                for (size_t i = 0; i < sortedVotes.size(); i++) {
+                    for (size_t j = i + 1; j < sortedVotes.size(); j++) {
+                        if (sortedVotes[j].second > sortedVotes[i].second) {
+                            std::swap(sortedVotes[i], sortedVotes[j]);
+                        }
+                    }
+                }
+
+                for (auto& p : sortedVotes) {
+                    resultsText += String::Format("{0}: {1} vote(s)\n", gcnew String(p.first.c_str()), p.second);
+                }
+
+                // Find leading candidate
+                if (!sortedVotes.empty() && sortedVotes[0].second > 0) {
+                    resultsText += "\n========== LEADING CANDIDATE ==========\n\n";
+                    resultsText += String::Format("Leading: {0} with {1} vote(s)\n", 
+                        gcnew String(sortedVotes[0].first.c_str()), sortedVotes[0].second);
+                } else {
+                    resultsText += "\n========== NO VOTES YET ==========\n\n";
+                    resultsText += "No votes have been cast so far.\n";
+                }
+
+                resultsText += "\n===========================================";
+
+                // Show results in a message box
+                MessageBox::Show(resultsText, "Current Voting Results", MessageBoxButtons::OK, MessageBoxIcon::Information);
+            }
+            catch (System::Exception^ ex) {
+                MessageBox::Show("Error displaying results: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
             }
         }
 
